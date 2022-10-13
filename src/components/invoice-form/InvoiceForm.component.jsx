@@ -20,6 +20,7 @@ const defaultForm = {
   quantity: "",
   price: "",
   projectDescription: "",
+  
 };
 
 function InvoiceForm() {
@@ -41,6 +42,7 @@ function InvoiceForm() {
     quantity,
     price,
     projectDescription,
+   
   } = formFields;
 
   function handleChange(event) {
@@ -48,6 +50,7 @@ function InvoiceForm() {
     setFormFields({
       ...formFields,
       [name]: value,
+     
     });
   }
   function handleSubmit(event) {
