@@ -1,11 +1,18 @@
-import React from "react";
+import {useContext} from "react";
+import { CrudContext } from "../../context/Crud.context";
 import styled from "styled-components";
 
 function SideBar() {
+  
+  const {setShow, show} = useContext(CrudContext)
+  
+  function handleShow() {
+    setShow(!show)
+  }
   return (
     <Bar>
-      <Icon>
-        <img src="./assets/logo.svg" alt="" srcset="" />
+      <Icon onClick={handleShow}>
+        <img  src="./assets/logo.svg" alt="" srcset="" />
       </Icon>
 
       <Container>
@@ -25,12 +32,14 @@ export default SideBar;
 const Bar = styled.div`
   background-color: #1e2139;
   display: flex;
+  z-index: 2;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 5rem;
+  max-width: 7rem;
   border-radius: 0 0.7rem 0.7rem 0;
-`;
+
+  `;
 
 const Icon = styled.figure`
   background-color: #7c5dfa;

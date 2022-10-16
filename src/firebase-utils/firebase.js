@@ -16,8 +16,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore()
 
-export async function createPost(post) {
-    await addDoc(collection(db, 'invoices') , post)
+export async function createInvoice(invoice) {
+    await addDoc(collection(db, 'invoices') , invoice)
 }
 
 
@@ -25,6 +25,8 @@ export async function createPost(post) {
     const data = await getDocs(collection(db, 'invoices'))
     const invoices = data.docs.map((doc) => ({...doc.data(), id : doc.id}))
 
+    return invoices
+   
 }
 
 
@@ -39,7 +41,7 @@ export async function deleteInvoice(Id) {
     await deleteDoc(docRef)
 }
 
-deleteInvoice('2RjBYAtoKk3t6GT7D8mH')
+
 
 
 

@@ -30,13 +30,14 @@ body {
 h1 {
     font-size: 2rem;
     line-height: 2.2rem;
-    
+    color: var(--black);
 }
 
 h2{
     font-size: 1.2rem;
     line-height: 1.3rem;
-    }
+    color: var(--black);    
+}
 
 h3 {
    
@@ -48,3 +49,21 @@ p {
     font-size: 0.7rem;
     line-height: 0.9rem; 
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+    
+position: unset;
+  }
+  
+
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--grayPurple);
+    border-radius: 0.7rem;
+    background-clip: padding-box;
+    
+}
+  
+
+  

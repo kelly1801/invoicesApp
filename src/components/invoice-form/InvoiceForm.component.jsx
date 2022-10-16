@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import FormInput from "./FormInput.component";
 import styled from "styled-components";
-import { createPost } from "../../firebase-utils/firebase";
+import { createInvoice } from "../../firebase-utils/firebase";
+import { CrudContext } from "../../context/Crud.context";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const defaultForm = {
   street: "",
@@ -20,11 +23,16 @@ const defaultForm = {
   quantity: "",
   price: "",
   projectDescription: "",
-  
 };
 
 function InvoiceForm() {
+  const { setInvosAdded, invoAdded, createNewInvoice } =
+    useContext(CrudContext);
+  useEffect(() => {
+    AOS.init();
+  }, []);
   const [formFields, setFormFields] = useState(defaultForm);
+
   const {
     street,
     city,
@@ -42,7 +50,6 @@ function InvoiceForm() {
     quantity,
     price,
     projectDescription,
-   
   } = formFields;
 
   function handleChange(event) {
@@ -50,19 +57,24 @@ function InvoiceForm() {
     setFormFields({
       ...formFields,
       [name]: value,
-     
     });
   }
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(formFields)
-  createPost(formFields)
+
+    createNewInvoice(formFields);
+    setInvosAdded(!invoAdded);
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form
+      onSubmit={handleSubmit}
+      data-aos="fade-right"
+      data-aos-offset="300"
+      data-aos-easing="ease-in-sine"
+    >
       <FormDiv>
-        <h2>Billed from</h2>
+        <h2>Bill from</h2>
 
         <FormInput
           type="text"
@@ -98,7 +110,7 @@ function InvoiceForm() {
       </FormDiv>
 
       <FormDiv>
-        <h2>Billed to</h2>
+        <h2>Bill to</h2>
 
         <FormInput
           nameTag="clientName"
@@ -175,7 +187,7 @@ function InvoiceForm() {
         />
       </FormDiv>
       <h2>item list</h2>
-      
+
       <FormSection>
         <FormInput
           nameTag="itemName"
@@ -209,29 +221,43 @@ export default InvoiceForm;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  border: 4px solid black;
-  border-radius: 1rem;
-  width: 400px;
-  padding: 1rem;
+  padding: 0 10px;
+  border-radius: 0 1rem 1rem 0;
+  z-index: 1;
+  margin-left: -10px;
+  width: 100%;
+  max-width: 450px;
+  padding: 3rem;
+
+  background-color: #fff;
+  height: 100vh;
+  overflow-y: scroll;
+  h2 {
+    font-size: 0.9rem;
+    color: var(--purple);
+    font-weight: bold;
+  }
+  input {
+    outline: none;
+    border: 1px solid var(--lightPurple);
+    padding: 0.5rem;
+  }
 `;
 const FormSection = styled.div`
-
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 1rem 0;
-  
+
   label {
     display: flex;
     flex-direction: column;
     text-align: left;
   }
-input {
-  max-width: 5rem;
-  margin: 0.5rem 0;
-}
- 
-  
+  input {
+    max-width: 5rem;
+    margin: 0.5rem 0;
+  }
 `;
 
 const FormDiv = styled.div`
@@ -242,12 +268,11 @@ const FormDiv = styled.div`
     display: flex;
     flex-direction: column;
     text-align: left;
+    color: var(--blue);
+    padding: 0.5rem;
   }
-  
 `;
 const FormSection2 = styled(FormDiv)`
   flex-direction: row;
   justify-content: space-between;
- 
-
 `;
