@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import FormInput from "./FormInput.component";
 import styled from "styled-components";
-import { createInvoice } from "../../firebase-utils/firebase";
+
 import { CrudContext } from "../../context/Crud.context";
-import AOS from "aos";
-import "aos/dist/aos.css";
+
+
 
 const defaultForm = {
   street: "",
@@ -26,11 +26,9 @@ const defaultForm = {
 };
 
 function InvoiceForm() {
-  const { setInvosAdded, invoAdded, createNewInvoice } =
+  const { setInvosAdded, invoAdded, createNewInvoice, uuid } =
     useContext(CrudContext);
-  useEffect(() => {
-    AOS.init();
-  }, []);
+  
   const [formFields, setFormFields] = useState(defaultForm);
 
   const {
@@ -59,21 +57,26 @@ function InvoiceForm() {
       [name]: value,
     });
   }
-  function handleSubmit(event) {
-    event.preventDefault();
+  function saveInvoice(status) {
+    
 
-    createNewInvoice(formFields);
+    createNewInvoice({...formFields, ID:uuid, status: status});
     setInvosAdded(!invoAdded);
+
+    console.log(formFields)
   }
 
   return (
     <Form
-      onSubmit={handleSubmit}
+    onSubmit={(e) => e.preventDefault()}
+    
       data-aos="fade-right"
       data-aos-offset="300"
       data-aos-easing="ease-in-sine"
     >
+      <FormContainer>
       <FormDiv>
+        <h1>{uuid}</h1>
         <h2>Bill from</h2>
 
         <FormInput
@@ -211,8 +214,11 @@ function InvoiceForm() {
           type="number"
         />
       </FormSection>
+ 
+      <button type="submit" onClick={() => saveInvoice('pending')}>save as pending</button>
+      <button type="submit" onClick={() => saveInvoice('draft')} >save as draft</button>
 
-      <button type="submit">submit</button>
+      </FormContainer>
     </Form>
   );
 }
@@ -227,21 +233,17 @@ const Form = styled.form`
   margin-left: -10px;
   width: 100%;
   max-width: 450px;
-  padding: 3rem;
+  padding: 1rem 2rem;
 
   background-color: #fff;
   height: 100vh;
-  overflow-y: scroll;
+  
   h2 {
     font-size: 0.9rem;
     color: var(--purple);
     font-weight: bold;
   }
-  input {
-    outline: none;
-    border: 1px solid var(--lightPurple);
-    padding: 0.5rem;
-  }
+  
 `;
 const FormSection = styled.div`
   display: flex;
@@ -264,15 +266,13 @@ const FormDiv = styled.div`
   display: flex;
   flex-direction: column;
 
-  label {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    color: var(--blue);
-    padding: 0.5rem;
-  }
+ 
 `;
 const FormSection2 = styled(FormDiv)`
   flex-direction: row;
   justify-content: space-between;
 `;
+const FormContainer = styled.div`
+overflow-y: scroll;
+padding: 1rem;
+`
