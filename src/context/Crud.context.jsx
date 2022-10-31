@@ -23,8 +23,9 @@ export function generateAlphanumericId() {
   for (let i = 0; i < 4; i++) {
     idB += numbers.charAt(Math.floor(Math.random() * 10));
   }
-  const result = idA + idB;
-return result
+
+
+  return idA + idB
 }
 
 
@@ -43,21 +44,29 @@ export const CrudProvider = ({ children }) => {
   const [show, setShow] = useState(false);
   const [invoicesCollection, setInvoicesCollection] = useState([]);
   const [invoAdded, setInvosAdded] = useState(false);
-  const [uuid, setUniqueId] = useState('VG49032');
+  const [uuid, setUniqueId] = useState();
 
   useEffect(() => {
     function retrieve() {
       retrieveData(setInvoicesCollection);
     }
-   
+
     retrieve()
-  }, [invoAdded]);
+  }, [uuid]);
+  useEffect(() => {
+      setUniqueId(generateAlphanumericId)
+
+  }, []);
+
 
   function createNewInvoice(invoice) {
   
     createInvoice(invoice);
-    setUniqueId(generateAlphanumericId())
-  
+    setUniqueId(generateAlphanumericId)
+
+    console.log(uuid)
+    console.log('creator function called')
+
   }
 
  

@@ -9,19 +9,19 @@ function Home() {
  const {show} = useContext(CrudContext)  
   
     return (
-    <HomePage>
+    <Page>
 
         <SideBar/>
         {show && <InvoiceForm/>}
         <Box/>
         
-    </HomePage>
+    </Page>
   )
 }
 
 export default Home
 
-const HomePage = styled.main`
+export const Page = styled.main`
 display: flex;
 
 `

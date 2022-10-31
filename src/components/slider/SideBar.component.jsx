@@ -38,6 +38,7 @@ const Bar = styled.div`
   justify-content: space-between;
   max-width: 7rem;
   border-radius: 0 0.7rem 0.7rem 0;
+  height: 100vh;
 
   `;
 

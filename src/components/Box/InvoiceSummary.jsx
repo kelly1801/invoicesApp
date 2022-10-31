@@ -2,16 +2,18 @@ import styled from "styled-components";
 import arrow from "../../assets/icon-arrow-right.svg";
 import { useState } from "react";
 import Status from "../Status.jsx";
-function DropInvoice({ invoiceData }) {
-  let { status } = invoiceData;
+import {useParams, useNavigate} from "react-router-dom";
+function InvoiceSummary({ invoiceData }) {
+  let { status, ID } = invoiceData;
   const [stats, setStats] = useState(status);
-
+// const {invoId} = useParams()
+    const navigate = useNavigate()
   function setStatusToPaid() {
     setStats("Paid");
   }
   return (
-    <Summary>
-      <Item>#{invoiceData.ID}</Item>
+    <Summary onClick={navigate(`/${ID}`)}>
+      <Item>#{ID}</Item>
       <span>Due {invoiceData.invoiceDate}</span>
       <span>{invoiceData.clientName}</span>
       <Item>£{invoiceData.price}</Item>
@@ -23,7 +25,7 @@ function DropInvoice({ invoiceData }) {
   );
 }
 
-export default DropInvoice;
+export default InvoiceSummary;
 
 const Summary = styled.summary`
   background-color: var(--white);
@@ -31,8 +33,9 @@ const Summary = styled.summary`
   align-items: center;
   justify-content: space-evenly;
   margin: 1rem;
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   padding: 1rem;
+  box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.100397);
 
   span {
     text-transform: capitalize;

@@ -78,7 +78,7 @@ function InvoiceForm() {
     >
       <FormContainer>
       <FormDiv>
-        <h1>{}</h1>
+        <h1>{uuid}</h1>
         <h2>Bill from</h2>
 
         <FormInput

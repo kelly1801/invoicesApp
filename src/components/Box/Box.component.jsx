@@ -1,8 +1,11 @@
 import { useContext} from 'react'
 import { CrudContext } from '../../context/Crud.context'
-import DropInvoice from './DropInvoice'
+import InvoiceSummary from './InvoiceSummary.jsx'
+import InvoiceDetails from "./InvoiceDetails.jsx";
+import {Route, Routes, useNavigate, useParams} from "react-router-dom";
 import styled from 'styled-components'
 import Button from "../Button.jsx";
+
 function Box() {
 const { invoicesCollection } = useContext(CrudContext)
     
@@ -11,7 +14,7 @@ const { invoicesCollection } = useContext(CrudContext)
 <HeaderSection>
 <div>
 <h1>Invoices</h1>
-<span>There are 7 total invoices</span>
+<span>There are in total {invoicesCollection.length} invoices</span>
 </div>
 
 <div>
@@ -28,9 +31,10 @@ const { invoicesCollection } = useContext(CrudContext)
 </Button>
 </div>
 </HeaderSection>
-   
+
+
    {
-invoicesCollection.map(invo => <DropInvoice key={invo.id} invoiceData={invo}/>)
+invoicesCollection.map(invo => <InvoiceSummary key={invo.id} invoiceData={invo}/>)
 
    }
    </Section>

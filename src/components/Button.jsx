@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import add from "../assets/icon-plus.svg";
-function Button({ children }) {
+function Button({ children}) {
   return (
     <ButtonContainer >
       <div>
@@ -12,7 +12,7 @@ function Button({ children }) {
 }
 
 export default Button;
-const ButtonContainer = styled.button`
+export  const ButtonContainer = styled.button`
   background-color: var(--purple);
   color: var(--white);
   font-weight: 500;
