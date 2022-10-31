@@ -11,14 +11,17 @@ function InvoiceSummary({ invoiceData }) {
   function setStatusToPaid() {
     setStats("Paid");
   }
+  function goToqueryinvoice() {
+    navigate(`${ID}`)
+  }
   return (
-    <Summary onClick={navigate(`/${ID}`)}>
+    <Summary >
       <Item>#{ID}</Item>
       <span>Due {invoiceData.invoiceDate}</span>
       <span>{invoiceData.clientName}</span>
       <Item>£{invoiceData.price}</Item>
       <Status changeStatus={setStatusToPaid}>{stats}</Status>
-      <figure>
+      <figure onClick={goToqueryinvoice} >
         <img src={arrow} alt="" />
       </figure>
     </Summary>

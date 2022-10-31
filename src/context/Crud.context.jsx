@@ -4,6 +4,7 @@ import {
   getAllInvoices,
   updateInvoice,
   deleteInvoice,
+  getInvoiceById,
 } from "../firebase-utils/firebase";
 
 async function retrieveData(setInvoicesCollection) {
@@ -24,11 +25,8 @@ export function generateAlphanumericId() {
     idB += numbers.charAt(Math.floor(Math.random() * 10));
   }
 
-
-  return idA + idB
+  return idA + idB;
 }
-
-
 
 export const CrudContext = createContext({
   show: false,
@@ -37,12 +35,15 @@ export const CrudContext = createContext({
   invoAdded: false,
   setInvosAdded: () => {},
   createNewInvoice: () => {},
-  uuid : ''
+  uuid: "",
+  retrieveInvo: () => {},
+  queryInvoice: "",
 });
 
 export const CrudProvider = ({ children }) => {
   const [show, setShow] = useState(false);
   const [invoicesCollection, setInvoicesCollection] = useState([]);
+  const [queryInvoice, setQueryInvoice] = useState({});
   const [invoAdded, setInvosAdded] = useState(false);
   const [uuid, setUniqueId] = useState();
 
@@ -51,25 +52,23 @@ export const CrudProvider = ({ children }) => {
       retrieveData(setInvoicesCollection);
     }
 
-    retrieve()
+    retrieve();
   }, [uuid]);
   useEffect(() => {
-      setUniqueId(generateAlphanumericId)
-
+    setUniqueId(generateAlphanumericId);
   }, []);
 
-
   function createNewInvoice(invoice) {
-  
     createInvoice(invoice);
-    setUniqueId(generateAlphanumericId)
-
-    console.log(uuid)
-    console.log('creator function called')
-
+    setUniqueId(generateAlphanumericId);
   }
 
- 
+  async function retrieveInvo(ID) {
+    const querySnapshot = await getInvoiceById(ID);
+    querySnapshot.forEach((doc) => {
+      setQueryInvoice(doc.data());
+    });
+  }
 
   const value = {
     show,
@@ -77,7 +76,9 @@ export const CrudProvider = ({ children }) => {
     invoicesCollection,
     setInvosAdded,
     createNewInvoice,
-    uuid
+    uuid,
+    retrieveInvo,
+    queryInvoice,
   };
 
   return <CrudContext.Provider value={value}>{children}</CrudContext.Provider>;

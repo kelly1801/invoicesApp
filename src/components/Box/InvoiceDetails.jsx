@@ -1,20 +1,39 @@
+import { useEffect } from "react";
 import styled from "styled-components";
 import Status from "../Status.jsx";
 import arrowLeft from "../../assets/icon-arrow-left.svg";
 import { ButtonContainer } from "../Button.jsx";
-import {Link} from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { CrudContext } from "../../context/Crud.context.jsx";
+
 function InvoiceDetails() {
+  const { queryInvoice, retrieveInvo } = useContext(CrudContext);
+  const { invoId } = useParams();
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    async function getCurrentInvoice() {
+      await retrieveInvo(invoId);
+    }
+    return () => {
+      getCurrentInvoice();
+      console.log(queryInvoice);
+    };
+  }, [invoId]);
+
+
   return (
     <InvoiceContainer>
-      <Link to='/'>
-      <BackButton>
-        <img src={arrowLeft} alt="" />
-        Go Back
-      </BackButton>
-      </Link>
-      <InvoiceHeader>
+
+        <BackButton onClick={() =>  navigate('/')}>
+          <img src={arrowLeft} alt="" />
+          Go Back
+        </BackButton>
+
+    <InvoiceHeader>
         <span>
-          Status <Status>Pending</Status>
+          Status <Status>{queryInvoice.status}</Status>
         </span>
 
         <GroupButtons>
@@ -28,38 +47,38 @@ function InvoiceDetails() {
         <BodyContainer>
           <BodyHeader>
             <div>
-              <h3># AZ0817</h3>
-              <span>Graphic design</span>
+              <h3># {queryInvoice.ID}</h3>
+              <span>{queryInvoice.projectDescription}</span>
             </div>
             <div>
-              <span>19 Union Terrace</span>
-              <span>London </span>
-              <span>E1 3EZ</span>
-              <span>United Kingdom</span>
+              <span>{queryInvoice.street}</span>
+              <span>{queryInvoice.city} </span>
+              <span>{queryInvoice.postCode}</span>
+              <span>{queryInvoice.country}</span>
             </div>
           </BodyHeader>
 
           <BodyData>
             <div>
               <span>Invoice Date</span>
-              <h3>21 Aug 2021</h3>
+              <h3>{queryInvoice.invoiceDate}</h3>
               <span>Payment Due</span>
-              <h3>20 Sep 2021</h3>
+              <h3>{queryInvoice.paymentDate}</h3>
             </div>
             <div>
               <span>Bill to</span>
 
-              <h3>Alex Grim</h3>
+              <h3>{queryInvoice.clientName}</h3>
               <ul>
-                <li>84 Church Way</li>
-                <li> Bradford</li>
-                <li> BD1 9PB</li>
-                <li> United Kingdom</li>
+                <li>{queryInvoice.clientStreet}</li>
+                <li>{queryInvoice.clientCity}</li>
+                <li>{queryInvoice.clientPostCode}</li>
+                <li>{queryInvoice.clientCountry}</li>
               </ul>
             </div>
             <div>
               <span>Sent to</span>
-              <h3>alexgrim@mail.com</h3>
+              <h3>{queryInvoice.clientEmail}</h3>
             </div>
           </BodyData>
           <BodyItem>
@@ -72,15 +91,15 @@ function InvoiceDetails() {
 
             <div>
               <h3>Banner Design</h3>
-              <span>2</span>
-              <span>£ 156.00</span>
-              <h3>£ 156.00</h3>
+              <span>{queryInvoice.quantity}</span>
+              <span>£ {queryInvoice.price}</span>
+              <h3>£ {queryInvoice.quantity * queryInvoice.price}</h3>
             </div>
           </BodyItem>
         </BodyContainer>
         <Amount>
           <span>Amount Due</span>
-          <h2>£ 556.00</h2>
+          <h2>£ {queryInvoice.quantity * queryInvoice.price}</h2>
         </Amount>
       </InvoiceBody>
     </InvoiceContainer>
