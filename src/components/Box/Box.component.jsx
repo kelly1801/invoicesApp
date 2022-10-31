@@ -2,7 +2,7 @@ import { useContext} from 'react'
 import { CrudContext } from '../../context/Crud.context'
 import DropInvoice from './DropInvoice'
 import styled from 'styled-components'
-
+import Button from "../Button.jsx";
 function Box() {
 const { invoicesCollection } = useContext(CrudContext)
     
@@ -23,9 +23,9 @@ const { invoicesCollection } = useContext(CrudContext)
 
 </select>
 
-<button>
+<Button>
     new invoice
-</button>
+</Button>
 </div>
 </HeaderSection>
    
@@ -42,19 +42,14 @@ const Section = styled.section`
 width: 100%;
 height: 100vh;
 padding: 0 5rem;
+  overflow-y: scroll ;
 span {
     color: var(--grayPurple);
     font-size: 0.7rem;
     line-height: 0.9rem;
     letter-spacing: 0.25px;
 }
-button{
-    padding: 1rem 2rem;
-    background-color: #7C5DFA;
-    border: none;
-    border-radius: 1.5rem;
-    margin-left: 1rem;
-}
+
 
 `
 const HeaderSection = styled.div`

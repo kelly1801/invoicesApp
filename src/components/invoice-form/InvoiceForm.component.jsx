@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState,  useContext,} from "react";
 import FormInput from "./FormInput.component";
 import styled from "styled-components";
 
@@ -26,10 +26,11 @@ const defaultForm = {
 };
 
 function InvoiceForm() {
-  const { setInvosAdded, invoAdded, createNewInvoice, uuid } =
-    useContext(CrudContext);
+     const { setInvosAdded, invoAdded, createNewInvoice, uuid } =
+       useContext(CrudContext);
   
   const [formFields, setFormFields] = useState(defaultForm);
+
 
   const {
     street,
@@ -57,14 +58,15 @@ function InvoiceForm() {
       [name]: value,
     });
   }
-  function saveInvoice(status) {
-    
+;
+     function saveInvoice(status) {
+      
 
-    createNewInvoice({...formFields, ID:uuid, status: status});
-    setInvosAdded(!invoAdded);
+     createNewInvoice({...formFields, ID:uuid, status: status});
+       setInvosAdded(!invoAdded);
 
-    console.log(formFields)
-  }
+     console.log(formFields)
+     }
 
   return (
     <Form
@@ -76,7 +78,7 @@ function InvoiceForm() {
     >
       <FormContainer>
       <FormDiv>
-        <h1>{uuid}</h1>
+        <h1>{}</h1>
         <h2>Bill from</h2>
 
         <FormInput
@@ -215,8 +217,8 @@ function InvoiceForm() {
         />
       </FormSection>
  
-      <button type="submit" onClick={() => saveInvoice('pending')}>save as pending</button>
-      <button type="submit" onClick={() => saveInvoice('draft')} >save as draft</button>
+      <button type="submit" onClick={() => saveInvoice('Pending')}>save as pending</button>
+      <button type="submit" onClick={() => saveInvoice('Draft')} >save as draft</button>
 
       </FormContainer>
     </Form>
@@ -227,14 +229,12 @@ export default InvoiceForm;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  padding: 0 10px;
   border-radius: 0 1rem 1rem 0;
   z-index: 1;
   margin-left: -10px;
   width: 100%;
   max-width: 450px;
   padding: 1rem 2rem;
-
   background-color: #fff;
   height: 100vh;
   
