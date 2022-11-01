@@ -6,12 +6,9 @@ import {
   deleteInvoice,
   getInvoiceById,
   getInvoicesByStatus,
+  db,
 } from "../firebase-utils/firebase";
-
-async function retrieveData(setInvoicesCollection) {
-  const invoices = await getAllInvoices();
-  setInvoicesCollection(invoices);
-}
+import { deleteDoc, doc } from "firebase/firestore";
 
 export function generateAlphanumericId() {
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -20,7 +17,7 @@ export function generateAlphanumericId() {
   let idB = "";
 
   for (let i = 0; i < 2; i++) {
-    idA += letters.charAt(Math.floor(Math.random() * 27));
+    idA += letters.charAt(Math.floor(Math.random() * 26));
   }
   for (let i = 0; i < 4; i++) {
     idB += numbers.charAt(Math.floor(Math.random() * 10));
@@ -41,6 +38,9 @@ export const CrudContext = createContext({
   queryInvoice: "",
   setStatus: () => {},
   paidStatus: "",
+  toggleAlert: false,
+  setToggleAlert: () => {},
+  deleteInvoices: () => {},
 });
 
 export const CrudProvider = ({ children }) => {
@@ -49,12 +49,13 @@ export const CrudProvider = ({ children }) => {
   const [queryInvoice, setQueryInvoice] = useState({});
   const [paidStatus, setStatus] = useState("");
   const [uuid, setUniqueId] = useState();
+  const [toggleAlert, setToggleAlert] = useState(false);
+  async function retrieve() {
+    const invoices = await getAllInvoices();
+    setInvoicesCollection(invoices);
+  }
 
   useEffect(() => {
-    function retrieve() {
-      retrieveData(setInvoicesCollection);
-    }
-
     retrieve();
   }, [uuid]);
   useEffect(() => {
@@ -86,7 +87,12 @@ export const CrudProvider = ({ children }) => {
     });
   }
 
-  //
+  async function deleteInvoices(id) {
+    const docId = await deleteInvoice(id);
+    const docRef = doc(db, "invoices", docId);
+    await deleteDoc(docRef);
+    await retrieve();
+  }
   const value = {
     show,
     setShow,
@@ -97,6 +103,9 @@ export const CrudProvider = ({ children }) => {
     queryInvoice,
     setStatus,
     paidStatus,
+    toggleAlert,
+    setToggleAlert,
+    deleteInvoices,
   };
 
   return <CrudContext.Provider value={value}>{children}</CrudContext.Provider>;

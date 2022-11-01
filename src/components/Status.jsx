@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
-
-function Status({ children ,  changeStatus}) {
-
-
+function Status({ children, changeStatus }) {
   return (
-    <StatusContainer onClick={changeStatus} stats={ children } >
+    <StatusContainer onClick={changeStatus} stats={children}>
       <div></div>
       {children}
     </StatusContainer>
@@ -34,13 +31,13 @@ const StatusContainer = styled.div`
       : "blue"};
   
   color : ${(props) =>
-      props.stats === "Paid"
-          ? "#33d69f"
-          : props.stats === "Pending"
-              ? "var(--orange)" 
-              : props.stats === "Draft"
-                  ? "#373B53"
-                  : "blue"};
+    props.stats === "Paid"
+      ? "#33d69f"
+      : props.stats === "Pending"
+      ? "var(--orange)"
+      : props.stats === "Draft"
+      ? "#373B53"
+      : "blue"};
  
 
   div {
@@ -48,12 +45,12 @@ const StatusContainer = styled.div`
     height: 0.5rem;
     border-radius: 50%;
     background-color: ${(props) =>
-        props.stats === "Paid"
-            ? "#33d69f"
-            : props.stats === "Pending"
-                ? "var(--orange)"
-                : props.stats === "Draft"
-                    ? "#373B53"
-                    : "blue"};
+      props.stats === "Paid"
+        ? "#33d69f"
+        : props.stats === "Pending"
+        ? "var(--orange)"
+        : props.stats === "Draft"
+        ? "#373B53"
+        : "blue"};
  
 `;

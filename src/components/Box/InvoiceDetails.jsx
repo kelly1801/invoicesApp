@@ -2,17 +2,21 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Status from "../Status.jsx";
 import arrowLeft from "../../assets/icon-arrow-left.svg";
+import DeletionAlert from "../DeletionAlert.jsx";
 import { ButtonContainer } from "../Button.jsx";
 import { useParams, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { CrudContext } from "../../context/Crud.context.jsx";
 
 function InvoiceDetails() {
-  const { queryInvoice, retrieveInvo } = useContext(CrudContext);
+  const { queryInvoice, retrieveInvo, setToggleAlert, toggleAlert } =
+    useContext(CrudContext);
   const { invoId } = useParams();
   const { status } = queryInvoice;
   const [stats, setStats] = useState(status);
+
   const navigate = useNavigate();
+
   function setStatusToPaid() {
     setStats("Paid");
   }
@@ -30,6 +34,9 @@ function InvoiceDetails() {
     };
   }, [invoId]);
 
+  function showAlert() {
+    setToggleAlert(!toggleAlert);
+  }
   return (
     <InvoiceContainer>
       <BackButton onClick={() => navigate("/")}>
@@ -39,16 +46,21 @@ function InvoiceDetails() {
 
       <InvoiceHeader>
         <span>
-          Status <Status changeStatus={setStatusToPaid}>{stats}</Status>
+          Status <Status>{stats}</Status>
         </span>
 
         <GroupButtons>
           Edit
-          <ButtonContainer delete>Delete</ButtonContainer>
-          <ButtonContainer>Mark as paid</ButtonContainer>
+          <ButtonContainer delete onClick={showAlert}>
+            Delete
+          </ButtonContainer>
+          <ButtonContainer onClick={setStatusToPaid}>
+            Mark as paid
+          </ButtonContainer>
         </GroupButtons>
       </InvoiceHeader>
 
+      {toggleAlert && <DeletionAlert />}
       <InvoiceBody>
         <BodyContainer>
           <BodyHeader>
@@ -115,6 +127,8 @@ function InvoiceDetails() {
 export default InvoiceDetails;
 const InvoiceContainer = styled.div`
   width: 80%;
+  max-height: 600px;
+
   li {
     color: var(--blue);
   }

@@ -12,7 +12,7 @@ function SideBar() {
   return (
     <Bar>
       <Icon onClick={handleShow}>
-        <img  src="./assets/logo.svg" alt="" srcset="" />
+        <img  src="./assets/logo.svg" alt=""  />
       </Icon>
 
       <Container>
@@ -32,7 +32,7 @@ export default SideBar;
 const Bar = styled.div`
   background-color: #1e2139;
   display: flex;
-  z-index: 2;
+  z-index: 6;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;

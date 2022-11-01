@@ -230,7 +230,7 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   border-radius: 0 1rem 1rem 0;
-  z-index: 1;
+  z-index: 5;
   margin-left: -10px;
   width: 100%;
   max-width: 450px;

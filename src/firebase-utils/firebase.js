@@ -11,6 +11,7 @@ import {
   where,
 } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
+import { Await } from "react-router-dom";
 const firebaseConfig = {
   apiKey: "AIzaSyDtW4vVtl6WyppbjtR7lZe2e-Y4c5kV0Ek",
   authDomain: "invoiceapp-8902c.firebaseapp.com",
@@ -29,9 +30,7 @@ export async function createInvoice(invoice) {
 
 export async function getAllInvoices() {
   const data = await getDocs(collection(db, "invoices"));
-  const invoices = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-
-  return invoices;
+  return data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 }
 
 export async function updateInvoice(Id, newInvoice) {
@@ -39,9 +38,15 @@ export async function updateInvoice(Id, newInvoice) {
   await updateDoc(docRef, newInvoice);
 }
 
-export async function deleteInvoice(Id) {
-  const docRef = doc(db, "invoices", Id);
-  await deleteDoc(docRef);
+export async function deleteInvoice(ID) {
+  let idD = "";
+  const docRef = collection(db, "invoices");
+  const q = query(docRef, where("ID", "==", ID));
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((doc) => (idD = doc.id));
+
+  return idD;
 }
 
 export async function getInvoiceById(invoiceId) {

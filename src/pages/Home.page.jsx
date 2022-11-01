@@ -3,15 +3,17 @@ import InvoiceForm from '../components/invoice-form/InvoiceForm.component'
 import SideBar from '../components/slider/SideBar.component'
 import styled from 'styled-components'
 import Box from '../components/Box/Box.component'
-import { CrudContext } from '../context/Crud.context'
+import {CrudContext} from "../context/Crud.context.jsx";
+        import {Overlay} from "./Details.page.jsx";
 function Home() {
   
  const {show} = useContext(CrudContext)  
   
     return (
     <Page>
-
+        {show && <Overlay/>}
         <SideBar/>
+
         {show && <InvoiceForm/>}
         <Box/>
         
@@ -21,7 +23,7 @@ function Home() {
 
 export default Home
 
-export const Page = styled.main`
+const Page = styled.main`
 display: flex;
 
 `
