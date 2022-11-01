@@ -25,7 +25,7 @@
   --lightOrange: #ffeed8;
 }
 body {
-  background-color: var(--lightPurple);
+  background-color: #f2f2f2;
 }
 h1 {
   font-size: 2rem;

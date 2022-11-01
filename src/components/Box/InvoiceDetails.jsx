@@ -1,16 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Status from "../Status.jsx";
 import arrowLeft from "../../assets/icon-arrow-left.svg";
 import { ButtonContainer } from "../Button.jsx";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { CrudContext } from "../../context/Crud.context.jsx";
 
 function InvoiceDetails() {
   const { queryInvoice, retrieveInvo } = useContext(CrudContext);
   const { invoId } = useParams();
-  const navigate = useNavigate()
+  const { status } = queryInvoice;
+  const [stats, setStats] = useState(status);
+  const navigate = useNavigate();
+  function setStatusToPaid() {
+    setStats("Paid");
+  }
+
+  useEffect(() => {
+    setStats(status);
+  }, []);
 
   useEffect(() => {
     async function getCurrentInvoice() {
@@ -18,22 +27,19 @@ function InvoiceDetails() {
     }
     return () => {
       getCurrentInvoice();
-      console.log(queryInvoice);
     };
   }, [invoId]);
 
-
   return (
     <InvoiceContainer>
+      <BackButton onClick={() => navigate("/")}>
+        <img src={arrowLeft} alt="" />
+        Go Back
+      </BackButton>
 
-        <BackButton onClick={() =>  navigate('/')}>
-          <img src={arrowLeft} alt="" />
-          Go Back
-        </BackButton>
-
-    <InvoiceHeader>
+      <InvoiceHeader>
         <span>
-          Status <Status>{queryInvoice.status}</Status>
+          Status <Status changeStatus={setStatusToPaid}>{stats}</Status>
         </span>
 
         <GroupButtons>

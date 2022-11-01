@@ -1,27 +1,29 @@
 import styled from "styled-components";
 import arrow from "../../assets/icon-arrow-right.svg";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Status from "../Status.jsx";
-import {useParams, useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { CrudContext } from "../../context/Crud.context.jsx";
 function InvoiceSummary({ invoiceData }) {
-  let { status, ID } = invoiceData;
+  const { status, ID } = invoiceData;
+  const { paidStatus } = useContext(CrudContext);
   const [stats, setStats] = useState(status);
-// const {invoId} = useParams()
-    const navigate = useNavigate()
+
+  const navigate = useNavigate();
   function setStatusToPaid() {
     setStats("Paid");
   }
-  function goToqueryinvoice() {
-    navigate(`${ID}`)
+  function goToQueryInvoice() {
+    navigate(`${ID}`);
   }
   return (
-    <Summary >
+    <Summary>
       <Item>#{ID}</Item>
       <span>Due {invoiceData.invoiceDate}</span>
       <span>{invoiceData.clientName}</span>
       <Item>£{invoiceData.price}</Item>
-      <Status changeStatus={setStatusToPaid}>{stats}</Status>
-      <figure onClick={goToqueryinvoice} >
+      <Status changeStatus={setStatusToPaid}>{paidStatus || stats}</Status>
+      <figure onClick={goToQueryInvoice}>
         <img src={arrow} alt="" />
       </figure>
     </Summary>
@@ -48,6 +50,7 @@ const Summary = styled.summary`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   }
 `;
 const Item = styled.h3`

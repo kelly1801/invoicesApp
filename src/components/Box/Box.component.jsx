@@ -1,14 +1,16 @@
 import { useContext} from 'react'
 import { CrudContext } from '../../context/Crud.context'
 import InvoiceSummary from './InvoiceSummary.jsx'
-import InvoiceDetails from "./InvoiceDetails.jsx";
-import {Route, Routes, useNavigate, useParams} from "react-router-dom";
+import EmptyState from "../EmptyState.jsx";
+import MenuDropdown from "../MenuDropdown.jsx";
 import styled from 'styled-components'
-import Button from "../Button.jsx";
+
+import {ButtonContainer}from "../Button.jsx";
 
 function Box() {
-const { invoicesCollection } = useContext(CrudContext)
-    
+const { invoicesCollection} = useContext(CrudContext)
+
+
     return (
    <Section>
 <HeaderSection>
@@ -17,24 +19,23 @@ const { invoicesCollection } = useContext(CrudContext)
 <span>There are in total {invoicesCollection.length} invoices</span>
 </div>
 
-<div>
-<select name="" id="">
-    <option selected disabled>Filter by status</option>
-<option value="DRAFT">Draft</option>
-<option value="PENDING">Pending</option>
-<option value="PAID">Paid</option>
+<Group>
 
-</select>
+    <MenuDropdown/>
 
-<Button>
+
+<ButtonContainer plus>
     new invoice
-</Button>
-</div>
+</ButtonContainer>
+</Group>
 </HeaderSection>
 
 
-   {
-invoicesCollection.map(invo => <InvoiceSummary key={invo.id} invoiceData={invo}/>)
+   {invoicesCollection.length?
+       invoicesCollection.map(invo => <InvoiceSummary key={invo.id} invoiceData={invo}/>)
+       :
+
+       <EmptyState/>
 
    }
    </Section>
@@ -56,9 +57,21 @@ span {
 
 
 `
+const Group = styled.div``
 const HeaderSection = styled.div`
 display: flex;
 align-items: center;
 justify-content: space-around;
 padding: 3rem 0;
+
+  ${Group} {
+   
+    display: flex;
+  justify-content: flex-end;
+    align-items: center;
+    padding: 1rem;
+    position: relative;
+  
+    width: 50%;
+  }
 `

@@ -50,3 +50,11 @@ export async function getInvoiceById(invoiceId) {
 
   return await getDocs(q);
 }
+export async function getInvoicesByStatus(invoiceStatus) {
+  const q = await query(
+    collection(db, "invoices"),
+    where("status", "==", invoiceStatus)
+  );
+
+  return await getDocs(q);
+}
