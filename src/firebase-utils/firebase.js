@@ -3,10 +3,6 @@ import {
   collection,
   addDoc,
   getDocs,
-  getDoc,
-  updateDoc,
-  doc,
-  deleteDoc,
   query,
   where,
 } from "firebase/firestore";
@@ -33,9 +29,16 @@ export async function getAllInvoices() {
   return data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 }
 
-export async function updateInvoice(Id, newInvoice) {
-  const docRef = doc(db, "invoices", Id);
-  await updateDoc(docRef, newInvoice);
+export async function updateInvoice(Id) {
+  let idD = "";
+
+  const docRef = collection(db, "invoices");
+  const q = query(docRef, where("ID", "==", Id));
+  const querySnapshot = await getDocs(q);
+
+  querySnapshot.forEach((doc) => (idD = doc.id));
+
+  return idD
 }
 
 export async function deleteInvoice(ID) {

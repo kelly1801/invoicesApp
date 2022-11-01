@@ -1,35 +1,15 @@
-import { useState,  useContext,} from "react";
+import { useContext } from "react";
 import FormInput from "./FormInput.component";
 import styled from "styled-components";
+import {defaultForm} from "../../context/Crud.context";
 
 import { CrudContext } from "../../context/Crud.context";
 
 
 
-const defaultForm = {
-  street: "",
-  city: "",
-  postCode: "",
-  country: "",
-  clientName: "",
-  clientEmail: "",
-  clientStreet: "",
-  clientCity: "",
-  clientPostCode: "",
-  clientCountry: "",
-  invoiceDate: "",
-  paymentDate: "",
-  itemName: "",
-  quantity: "",
-  price: "",
-  projectDescription: "",
-};
+function InvoiceForm({edit}) {
+  const { createNewInvoice, uuid, formFields, setFormFields, updateCurrentInvoice } = useContext(CrudContext);
 
-function InvoiceForm() {
-     const { setInvosAdded, invoAdded, createNewInvoice, uuid } =
-       useContext(CrudContext);
-  
-  const [formFields, setFormFields] = useState(defaultForm);
 
 
   const {
@@ -58,168 +38,172 @@ function InvoiceForm() {
       [name]: value,
     });
   }
-;
-     function saveInvoice(status) {
-      
+  function saveInvoice(status) {
+    createNewInvoice({ ...formFields, ID: uuid, status: status });
 
-     createNewInvoice({...formFields, ID:uuid, status: status});
-       setInvosAdded(!invoAdded);
+    setFormFields(defaultForm);
 
-     console.log(formFields)
-     }
+  }
+
 
   return (
     <Form
-    onSubmit={(e) => e.preventDefault()}
-    
+      onSubmit={(e) => e.preventDefault()}
       data-aos="fade-right"
       data-aos-offset="300"
       data-aos-easing="ease-in-sine"
     >
       <FormContainer>
-      <FormDiv>
-        <h1>{uuid}</h1>
-        <h2>Bill from</h2>
+        <FormDiv>
+          <h1>{edit}#{uuid}</h1>
+          <h2>Bill from</h2>
 
-        <FormInput
-          type="text"
-          nameTag="street"
-          labelTag="Street"
-          onChange={handleChange}
-          value={street}
-        />
+          <FormInput
+            type="text"
+            nameTag="street"
+            labelTag="Street"
+            onChange={handleChange}
+            value={street}
+          />
+
+          <FormSection>
+            <FormInput
+              nameTag="city"
+              type="text"
+              labelTag="City"
+              onChange={handleChange}
+              value={city}
+            />
+            <FormInput
+              nameTag="postCode"
+              onChange={handleChange}
+              value={postCode}
+              labelTag="Post Code"
+              type="number"
+            />
+            <FormInput
+              nameTag="country"
+              onChange={handleChange}
+              value={country}
+              labelTag="Country"
+              type="text"
+            />
+          </FormSection>
+        </FormDiv>
+
+        <FormDiv>
+          <h2>Bill to</h2>
+
+          <FormInput
+            nameTag="clientName"
+            onChange={handleChange}
+            value={clientName}
+            labelTag="Client Name"
+            type="text"
+          />
+          <FormInput
+            nameTag="clientEmail"
+            onChange={handleChange}
+            value={clientEmail}
+            labelTag="Client Email"
+            type="email"
+          />
+          <FormInput
+            nameTag="clientStreet"
+            onChange={handleChange}
+            value={clientStreet}
+            labelTag="Street Address"
+            type="text"
+          />
+
+          <FormSection>
+            <FormInput
+              nameTag="clientCity"
+              onChange={handleChange}
+              value={clientCity}
+              labelTag="City"
+              type="text"
+            />
+
+            <FormInput
+              nameTag="clientPostCode"
+              onChange={handleChange}
+              value={clientPostCode}
+              labelTag="Post code"
+              type="number"
+            />
+            <FormInput
+              nameTag="clientCountry"
+              onChange={handleChange}
+              value={clientCountry}
+              labelTag="country"
+              type="text"
+            />
+          </FormSection>
+        </FormDiv>
+
+        <FormDiv>
+          <FormSection2>
+            <FormInput
+              nameTag="invoiceDate"
+              onChange={handleChange}
+              value={invoiceDate}
+              labelTag="Invoice Date"
+              type="date"
+            />
+
+            <FormInput
+              nameTag="paymentDate"
+              onChange={handleChange}
+              value={paymentDate}
+              labelTag="Payment Terms"
+              type="text"
+            />
+          </FormSection2>
+          <FormInput
+            nameTag="projectDescription"
+            onChange={handleChange}
+            value={projectDescription}
+            labelTag="Project Description"
+            type="text"
+          />
+        </FormDiv>
+        <h2>item list</h2>
 
         <FormSection>
           <FormInput
-            nameTag="city"
-            type="text"
-            labelTag="City"
+            nameTag="itemName"
             onChange={handleChange}
-            value={city}
+            value={itemName}
+            labelTag="Item Name"
+            type="text"
           />
           <FormInput
-            nameTag="postCode"
+            nameTag="quantity"
             onChange={handleChange}
-            value={postCode}
-            labelTag="Post Code"
+            value={quantity}
+            labelTag="Qty"
             type="number"
           />
           <FormInput
-            nameTag="country"
+            nameTag="price"
             onChange={handleChange}
-            value={country}
-            labelTag="Country"
-            type="text"
-          />
-        </FormSection>
-      </FormDiv>
-
-      <FormDiv>
-        <h2>Bill to</h2>
-
-        <FormInput
-          nameTag="clientName"
-          onChange={handleChange}
-          value={clientName}
-          labelTag="Client Name"
-          type="text"
-        />
-        <FormInput
-          nameTag="clientEmail"
-          onChange={handleChange}
-          value={clientEmail}
-          labelTag="Client Email"
-          type="email"
-        />
-        <FormInput
-          nameTag="clientStreet"
-          onChange={handleChange}
-          value={clientStreet}
-          labelTag="Street Address"
-          type="text"
-        />
-
-        <FormSection>
-          <FormInput
-            nameTag="clientCity"
-            onChange={handleChange}
-            value={clientCity}
-            labelTag="City"
-            type="text"
-          />
-
-          <FormInput
-            nameTag="clientPostCode"
-            onChange={handleChange}
-            value={clientPostCode}
-            labelTag="Post code"
+            value={price}
+            labelTag="Price"
             type="number"
           />
-          <FormInput
-            nameTag="clientCountry"
-            onChange={handleChange}
-            value={clientCountry}
-            labelTag="country"
-            type="text"
-          />
         </FormSection>
-      </FormDiv>
 
-      <FormDiv>
-        <FormSection2>
-          <FormInput
-            nameTag="invoiceDate"
-            onChange={handleChange}
-            value={invoiceDate}
-            labelTag="Invoice Date"
-            type="date"
-          />
+        <button type="submit" onClick={() => saveInvoice("Pending")}>
+          save as pending
+        </button>
+        <button type="submit" onClick={() => saveInvoice("Draft")}>
+          save as draft
+        </button>
 
-          <FormInput
-            nameTag="paymentDate"
-            onChange={handleChange}
-            value={paymentDate}
-            labelTag="Payment Terms"
-            type="text"
-          />
-        </FormSection2>
-        <FormInput
-          nameTag="projectDescription"
-          onChange={handleChange}
-          value={projectDescription}
-          labelTag="Project Description"
-          type="text"
-        />
-      </FormDiv>
-      <h2>item list</h2>
-
-      <FormSection>
-        <FormInput
-          nameTag="itemName"
-          onChange={handleChange}
-          value={itemName}
-          labelTag="Item Name"
-          type="text"
-        />
-        <FormInput
-          nameTag="quantity"
-          onChange={handleChange}
-          value={quantity}
-          labelTag="Qty"
-          type="number"
-        />
-        <FormInput
-          nameTag="price"
-          onChange={handleChange}
-          value={price}
-          labelTag="Price"
-          type="number"
-        />
-      </FormSection>
- 
-      <button type="submit" onClick={() => saveInvoice('Pending')}>save as pending</button>
-      <button type="submit" onClick={() => saveInvoice('Draft')} >save as draft</button>
-
+        {edit && <button type="submit" onClick={() => updateInvoice("Pending")}>
+          update
+        </button>}
       </FormContainer>
     </Form>
   );
@@ -237,13 +221,12 @@ const Form = styled.form`
   padding: 1rem 2rem;
   background-color: #fff;
   height: 100vh;
-  
+
   h2 {
     font-size: 0.9rem;
     color: var(--purple);
     font-weight: bold;
   }
-  
 `;
 const FormSection = styled.div`
   display: flex;
@@ -265,14 +248,12 @@ const FormSection = styled.div`
 const FormDiv = styled.div`
   display: flex;
   flex-direction: column;
-
- 
 `;
 const FormSection2 = styled(FormDiv)`
   flex-direction: row;
   justify-content: space-between;
 `;
 const FormContainer = styled.div`
-overflow-y: scroll;
-padding: 1rem;
-`
+  overflow-y: scroll;
+  padding: 1rem;
+`;

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-function Status({ children, changeStatus }) {
+function Status({ children }) {
   return (
-    <StatusContainer onClick={changeStatus} stats={children}>
+    <StatusContainer stats={children}>
       <div></div>
       {children}
     </StatusContainer>

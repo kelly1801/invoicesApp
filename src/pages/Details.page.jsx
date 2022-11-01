@@ -11,7 +11,7 @@ function DetailsPage() {
     <PageContainer>
         {toggleAlert || show ? <Overlay/> : null}
       <SideBar />
-      {show && <InvoiceForm />}
+      {show && <InvoiceForm edit='edit ' />}
 
       <MainContent >
           <InvoiceDetails/>

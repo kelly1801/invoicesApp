@@ -9,11 +9,43 @@ import { useContext } from "react";
 import { CrudContext } from "../../context/Crud.context.jsx";
 
 function InvoiceDetails() {
-  const { queryInvoice, retrieveInvo, setToggleAlert, toggleAlert } =
-    useContext(CrudContext);
+  const {
+    queryInvoice,
+    retrieveInvo,
+    setToggleAlert,
+    toggleAlert,
+    updateCurrentInvoice,
+    formFields,
+    setFormFields,
+    show,
+    setShow,
+  } = useContext(CrudContext);
   const { invoId } = useParams();
-  const { status } = queryInvoice;
+  const {
+    street,
+    city,
+    postCode,
+    country,
+    clientName,
+    clientEmail,
+    clientCity,
+    clientCountry,
+    clientPostCode,
+    clientStreet,
+    invoiceDate,
+    paymentDate,
+    itemName,
+    quantity,
+    price,
+    projectDescription,
+    status,
+    ID,
+
+  } = queryInvoice;
   const [stats, setStats] = useState(status);
+  const [update, setUpdate] = useState(false);
+
+
 
   const navigate = useNavigate();
 
@@ -32,21 +64,35 @@ function InvoiceDetails() {
     return () => {
       getCurrentInvoice();
     };
-  }, [invoId]);
+  }, [invoId, queryInvoice]);
 
   function showAlert() {
     setToggleAlert(!toggleAlert);
+
   }
+
+  function updateFields() {
+    setFormFields(queryInvoice);
+
+    setShow(true)
+  }
+  function updateNewInvoice(){
+    updateCurrentInvoice(invoId,{...formFields})
+    console.log(formFields)
+  }
+
+
+
   return (
-    <InvoiceContainer>
+    <InvoiceContainer >
       <BackButton onClick={() => navigate("/")}>
         <img src={arrowLeft} alt="" />
         Go Back
       </BackButton>
 
-      <InvoiceHeader>
+      <InvoiceHeader onClick={updateNewInvoice}>
         <span>
-          Status <Status>{stats}</Status>
+          Status <Status>{stats || status}</Status>
         </span>
 
         <GroupButtons>
@@ -65,38 +111,38 @@ function InvoiceDetails() {
         <BodyContainer>
           <BodyHeader>
             <div>
-              <h3># {queryInvoice.ID}</h3>
-              <span>{queryInvoice.projectDescription}</span>
+              <h3 onClick={updateFields}># {ID}</h3>
+              <span>{projectDescription}</span>
             </div>
             <div>
-              <span>{queryInvoice.street}</span>
-              <span>{queryInvoice.city} </span>
-              <span>{queryInvoice.postCode}</span>
-              <span>{queryInvoice.country}</span>
+              <span>{street}</span>
+              <span>{city} </span>
+              <span>{postCode}</span>
+              <span>{country}</span>
             </div>
           </BodyHeader>
 
           <BodyData>
             <div>
               <span>Invoice Date</span>
-              <h3>{queryInvoice.invoiceDate}</h3>
+              <h3>{invoiceDate}</h3>
               <span>Payment Due</span>
-              <h3>{queryInvoice.paymentDate}</h3>
+              <h3>{paymentDate}</h3>
             </div>
             <div>
               <span>Bill to</span>
 
-              <h3>{queryInvoice.clientName}</h3>
+              <h3>{clientName}</h3>
               <ul>
-                <li>{queryInvoice.clientStreet}</li>
-                <li>{queryInvoice.clientCity}</li>
-                <li>{queryInvoice.clientPostCode}</li>
-                <li>{queryInvoice.clientCountry}</li>
+                <li>{clientStreet}</li>
+                <li>{clientCity}</li>
+                <li>{clientPostCode}</li>
+                <li>{clientCountry}</li>
               </ul>
             </div>
             <div>
               <span>Sent to</span>
-              <h3>{queryInvoice.clientEmail}</h3>
+              <h3>{clientEmail}</h3>
             </div>
           </BodyData>
           <BodyItem>
@@ -108,16 +154,16 @@ function InvoiceDetails() {
             </ul>
 
             <div>
-              <h3>Banner Design</h3>
-              <span>{queryInvoice.quantity}</span>
-              <span>£ {queryInvoice.price}</span>
-              <h3>£ {queryInvoice.quantity * queryInvoice.price}</h3>
+              <h3>{itemName}</h3>
+              <span>{quantity}</span>
+              <span>£ {price}</span>
+              <h3>£ {quantity * price}</h3>
             </div>
           </BodyItem>
         </BodyContainer>
         <Amount>
           <span>Amount Due</span>
-          <h2>£ {queryInvoice.quantity * queryInvoice.price}</h2>
+          <h2>£ {quantity * price}</h2>
         </Amount>
       </InvoiceBody>
     </InvoiceContainer>

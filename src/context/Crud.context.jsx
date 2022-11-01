@@ -8,7 +8,7 @@ import {
   getInvoicesByStatus,
   db,
 } from "../firebase-utils/firebase";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 
 export function generateAlphanumericId() {
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -25,13 +25,28 @@ export function generateAlphanumericId() {
 
   return idA + idB;
 }
-
+export const defaultForm = {
+  street: "",
+  city: "",
+  postCode: "",
+  country: "",
+  clientName: "",
+  clientEmail: "",
+  clientStreet: "",
+  clientCity: "",
+  clientPostCode: "",
+  clientCountry: "",
+  invoiceDate: "",
+  paymentDate: "",
+  itemName: "",
+  quantity: "",
+  price: "",
+  projectDescription: "",
+};
 export const CrudContext = createContext({
   show: false,
   setShow: () => {},
   invoicesCollection: [],
-  invoAdded: false,
-  setInvosAdded: () => {},
   createNewInvoice: () => {},
   uuid: "",
   retrieveInvo: () => {},
@@ -41,6 +56,9 @@ export const CrudContext = createContext({
   toggleAlert: false,
   setToggleAlert: () => {},
   deleteInvoices: () => {},
+  updateCurrentInvoice: () => {},
+  formFields: defaultForm,
+  setFormFields: () => {},
 });
 
 export const CrudProvider = ({ children }) => {
@@ -50,6 +68,7 @@ export const CrudProvider = ({ children }) => {
   const [paidStatus, setStatus] = useState("");
   const [uuid, setUniqueId] = useState();
   const [toggleAlert, setToggleAlert] = useState(false);
+  const [formFields, setFormFields] = useState(defaultForm);
   async function retrieve() {
     const invoices = await getAllInvoices();
     setInvoicesCollection(invoices);
@@ -93,6 +112,14 @@ export const CrudProvider = ({ children }) => {
     await deleteDoc(docRef);
     await retrieve();
   }
+
+  async function updateCurrentInvoice(id, newInvoice) {
+    const uidd = await updateInvoice(id);
+    const docRef = doc(db, "invoices", uidd);
+    await updateDoc(docRef, { ...newInvoice });
+    setShow(true);
+  }
+
   const value = {
     show,
     setShow,
@@ -106,6 +133,9 @@ export const CrudProvider = ({ children }) => {
     toggleAlert,
     setToggleAlert,
     deleteInvoices,
+    updateCurrentInvoice,
+    formFields,
+    setFormFields,
   };
 
   return <CrudContext.Provider value={value}>{children}</CrudContext.Provider>;
