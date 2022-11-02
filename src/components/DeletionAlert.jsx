@@ -1,10 +1,10 @@
-import styled from "styled-components";
 import { defaultForm } from "../context/Crud.context.jsx";
-import { ButtonContainer } from "./Button.jsx";
+import { Button } from "./Styles/GlobalStyledComponents.js";
 import { useContext } from "react";
 import { CrudContext } from "../context/Crud.context.jsx";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import {AlertContainer, GroupButtons, Cancel} from "./Styles/alertStyles.js";
 
 function DeletionAlert() {
   const { invoId } = useParams();
@@ -33,42 +33,12 @@ function DeletionAlert() {
 
       <GroupButtons>
         <Cancel onClick={hideAlert}> Cancel </Cancel>
-        <ButtonContainer delete onClick={deleteAndRedirect}>
+        <Button delete onClick={deleteAndRedirect}>
           Delete
-        </ButtonContainer>
+        </Button>
       </GroupButtons>
     </AlertContainer>
   );
 }
 
 export default DeletionAlert;
-const AlertContainer = styled.div`
-  background-color: ${props => props.theme.main};
-  border-radius: 0.5rem;
-  padding: 2rem;
-  max-height: 250px;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 310px;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  position: absolute;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  z-index: 5;
-  p {
-    color: var(--blue);
-  }
-`;
-const GroupButtons = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-const Cancel = styled.button`
-  border: none;
-  background: none;
-  color: var(--blue);
-  cursor: pointer;
-`;

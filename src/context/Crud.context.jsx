@@ -8,7 +8,7 @@ import {
   getInvoicesByStatus,
   db,
 } from "../firebase-utils/firebase";
-import { light, dark } from "../components/themes.js";
+import { light, dark } from "../components/Styles/themes.js";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 
 export function generateAlphanumericId() {

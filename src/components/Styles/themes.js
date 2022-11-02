@@ -1,5 +1,5 @@
-import lightImg from '../assets/icon-sun.svg'
-import darkImg from  '../assets/icon-moon.svg'
+import lightImg from '../../assets/icon-sun.svg'
+import darkImg from '../../assets/icon-moon.svg'
 
 export const light = {
     bg: '#F2F2F2',

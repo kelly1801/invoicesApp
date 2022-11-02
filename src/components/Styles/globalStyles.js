@@ -29,7 +29,6 @@ const GlobalStyles = createGlobalStyle`
   }
   body {
      background-color:  ${(props) => props.theme.bg};
-  ;
   }
 
   h1 {
@@ -56,8 +55,6 @@ const GlobalStyles = createGlobalStyle`
 
   ::-webkit-scrollbar {
     width: 8px;
-
-    position: unset;
   }
 
   ::-webkit-scrollbar-thumb {

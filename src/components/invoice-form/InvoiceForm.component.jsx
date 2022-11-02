@@ -1,14 +1,12 @@
 import { useContext } from "react";
 import FormInput from "./FormInput.component";
-import styled from "styled-components";
 import {defaultForm} from "../../context/Crud.context";
-
 import { CrudContext } from "../../context/Crud.context";
-
+import {FormContainer, FormSection, Form, FormDiv, FormSection2} from "../Styles/invoiceStyles.js";
 
 
 function InvoiceForm({edit}) {
-  const { createNewInvoice, uuid, formFields, setFormFields, updateCurrentInvoice } = useContext(CrudContext);
+  const { createNewInvoice, uuid, formFields, setFormFields } = useContext(CrudContext);
 
 
 
@@ -28,6 +26,7 @@ function InvoiceForm({edit}) {
     itemName,
     quantity,
     price,
+      ID,
     projectDescription,
   } = formFields;
 
@@ -40,9 +39,7 @@ function InvoiceForm({edit}) {
   }
   function saveInvoice(status) {
     createNewInvoice({ ...formFields, ID: uuid, status: status });
-
     setFormFields(defaultForm);
-
   }
 
 
@@ -55,7 +52,7 @@ function InvoiceForm({edit}) {
     >
       <FormContainer>
         <FormDiv>
-          <h1>{edit}#{uuid}</h1>
+          <h1>{edit}#{edit? ID : uuid }</h1>
           <h2>Bill from</h2>
 
           <FormInput
@@ -200,64 +197,10 @@ function InvoiceForm({edit}) {
         <button type="submit" onClick={() => saveInvoice("Draft")}>
           save as draft
         </button>
-
-        {edit && <button type="submit" onClick={() => updateInvoice("Pending")}>
-          update
-        </button>}
       </FormContainer>
     </Form>
   );
 }
 
 export default InvoiceForm;
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  border-radius: 0 1rem 1rem 0;
-  z-index: 5;
-  margin-left: -10px;
-  width: 100%;
-  max-width: 450px;
-  padding: 1rem 2rem;
-  background-color: ${(props) => props.theme.invoiceBg};;
-  height: 100vh;
-  overflow: hidden;
-h1 {
-  color: ${(props) => props.theme.fontColor};
-}
-  h2 {
-    font-size: 0.9rem;
-    color: ${(props) => props.theme.subsColor};
-    font-weight: bold;
-  }
-`;
-const FormSection = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 1rem 0;
 
-  label {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-  }
-  input {
-    max-width: 5rem;
-    margin: 0.5rem 0;
-    
-  }
-`;
-
-const FormDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const FormSection2 = styled(FormDiv)`
-  flex-direction: row;
-  justify-content: space-between;
-`;
-const FormContainer = styled.div`
-  overflow-y: scroll;
-  padding: 1rem;
-`;

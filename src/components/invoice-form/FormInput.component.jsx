@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { Label, Input } from "../Styles/invoiceStyles.js";
 export default function FormInput({
   labelTag,
   onChange,
@@ -21,22 +21,3 @@ export default function FormInput({
    
   );
 }
-
-const Input = styled.input`
-
-  outline: none;
-  border: 1px solid ${(props) => props.theme.borderColor};;
-  padding: 0.5rem;
-  background-color: ${(props) => props.theme.main};
-  color: ${(props) => props.theme.fontColor};
-
-`
-const Label = styled.label`
-
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  color: ${(props) => props.theme.subsColor};;
-  padding: 0.5rem;
-
-`
