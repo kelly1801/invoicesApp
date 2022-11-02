@@ -40,22 +40,14 @@ function InvoiceDetails() {
     projectDescription,
     status,
     ID,
-
   } = queryInvoice;
   const [stats, setStats] = useState(status);
-  const [update, setUpdate] = useState(false);
-
-
-
   const navigate = useNavigate();
 
   function setStatusToPaid() {
     setStats("Paid");
+    updateCurrentInvoice(invoId, { ...formFields, status: "Paid" });
   }
-
-  useEffect(() => {
-    setStats(status);
-  }, []);
 
   useEffect(() => {
     async function getCurrentInvoice() {
@@ -68,23 +60,18 @@ function InvoiceDetails() {
 
   function showAlert() {
     setToggleAlert(!toggleAlert);
-
   }
 
   function updateFields() {
     setFormFields(queryInvoice);
-
-    setShow(true)
+    setShow(true);
   }
-  function updateNewInvoice(){
-    updateCurrentInvoice(invoId,{...formFields})
-    console.log(formFields)
+  function updateNewInvoice() {
+    updateCurrentInvoice(invoId, { ...formFields });
   }
-
-
 
   return (
-    <InvoiceContainer >
+    <InvoiceContainer>
       <BackButton onClick={() => navigate("/")}>
         <img src={arrowLeft} alt="" />
         Go Back
@@ -174,18 +161,20 @@ export default InvoiceDetails;
 const InvoiceContainer = styled.div`
   width: 80%;
   max-height: 600px;
-
+h3 {
+  color : ${(props) => props.theme.fontColor};
+}
   li {
-    color: var(--blue);
+    color:  ${(props) => props.theme.subsColor};
   }
   span {
-    color: var(--blue);
+    color: ${(props) => props.theme.subsColor};;
   }
 `;
 const BackButton = styled.button`
   background: none;
   border: none;
-  color: var(--black);
+  color: ${(props) => props.theme.fontColor};;
   gap: 0.5rem;
   display: flex;
   margin: 1rem 0;
@@ -193,7 +182,7 @@ const BackButton = styled.button`
 `;
 const InvoiceBody = styled.div`
   box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.100397);
-  background-color: var(--white);
+  background-color: ${props => props.theme.main};
   border-radius: 0.5rem;
 
   padding-bottom: 4rem;
@@ -204,8 +193,8 @@ const BodyContainer = styled.div`
   padding: 2.5rem;
 `;
 const Amount = styled.div`
-  background-color: var(--darkPurple);
-  color: var(--white);
+  background-color: ${props => props.theme.dark};
+  color: ${props => props.theme.fontColor};
   position: absolute;
   display: flex;
   justify-content: space-between;
@@ -216,7 +205,7 @@ const Amount = styled.div`
   bottom: 0;
 
   h2 {
-    color: var(--white);
+    color: ${props => props.theme.fontColor};
   }
 `;
 const BodyHeader = styled.div`
@@ -238,7 +227,7 @@ const InvoiceHeader = styled.div`
   justify-content: space-between;
   box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.100397);
   border-radius: 0.5rem;
-  background-color: var(--white);
+  background-color: ${props => props.theme.main};
   padding: 1rem;
   width: 100%;
 
@@ -247,11 +236,13 @@ const InvoiceHeader = styled.div`
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    color: ${(props) => props.theme.subsColor};;
   }
 `;
 const GroupButtons = styled.div`
   display: flex;
   align-items: center;
+  color: ${(props) => props.theme.fontColor};;
 `;
 
 const BodyData = styled.div`
@@ -262,10 +253,10 @@ const BodyData = styled.div`
   gap: 1rem;
   margin-bottom: 2rem;
   span {
-    color: var(--blue);
+    color: ${(props) => props.theme.subsColor};;
   }
   li {
-    color: var(--blue);
+    color: ${(props) => props.theme.subsColor};;
   }
   div {
     display: flex;

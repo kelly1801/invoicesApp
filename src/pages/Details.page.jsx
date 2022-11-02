@@ -23,7 +23,7 @@ function DetailsPage() {
 export default DetailsPage;
 
 const PageContainer = styled.main`
-  background-color: #f2f2f2;
+  background-color: ${(props) => props.theme.bg};;
   display: flex;
   
 `;

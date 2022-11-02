@@ -6,10 +6,13 @@ import { CrudProvider } from './context/Crud.context'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+
+    <React.StrictMode>
       <BrowserRouter>
           <CrudProvider>
-              <App />
+
+                  <App />
+
           </CrudProvider>
       </BrowserRouter>
   </React.StrictMode>

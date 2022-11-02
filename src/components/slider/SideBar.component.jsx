@@ -1,26 +1,33 @@
-import {useContext} from "react";
+import { useContext } from "react";
 import { CrudContext } from "../../context/Crud.context";
 import styled from "styled-components";
-
+import darkImg from "../../assets/icon-moon.svg";
+import lightImg from "../../assets/icon-sun.svg";
+import {dark, light} from "../themes.js";
 function SideBar() {
-  
-  const {setShow, show} = useContext(CrudContext)
-  
+  const { setShow, show, setTheme, theme} = useContext(CrudContext);
   function handleShow() {
-    setShow(!show)
+    setShow(!show);
+  }
+  function switchTheme(){
+      setTheme(!theme)
   }
   return (
     <Bar>
       <Icon onClick={handleShow}>
-        <img  src="./assets/logo.svg" alt=""  />
+        <img src="./assets/logo.svg" alt="" />
       </Icon>
 
       <Container>
-        <Theme>
-          <img src="./assets/icon-sun.svg" />
+        <Theme onClick={switchTheme}>
+          {!theme  ? (
+            <img src={darkImg} alt="theme" />
+          ) : (
+            <img src={lightImg} alt="theme" />
+          )}
         </Theme>
         <Avatar>
-          <img src="./assets/image-avatar.jpg" />
+          <img src="./assets/image-avatar.jpg" alt={"avatar"} />
         </Avatar>
       </Container>
     </Bar>
@@ -39,8 +46,7 @@ const Bar = styled.div`
   max-width: 7rem;
   border-radius: 0 0.7rem 0.7rem 0;
   height: 100vh;
-
-  `;
+`;
 
 const Icon = styled.figure`
   background-color: #7c5dfa;

@@ -44,8 +44,12 @@ const Section = styled.section`
   height: 100vh;
   padding: 0 5rem;
   overflow-y: scroll;
+  background-color:  ${props => props.theme.bg};
+  h1 {
+    color:${props => props.theme.fontColor} ;
+  }
   span {
-    color: var(--grayPurple);
+    color: ${props => props.theme.subsColor};
     font-size: 0.7rem;
     line-height: 0.9rem;
     letter-spacing: 0.25px;

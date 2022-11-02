@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { defaultForm } from "../context/Crud.context.jsx";
 import { ButtonContainer } from "./Button.jsx";
 import { useContext } from "react";
 import { CrudContext } from "../context/Crud.context.jsx";
@@ -9,7 +10,8 @@ function DeletionAlert() {
   const { invoId } = useParams();
   const navigate = useNavigate();
 
-  const { setToggleAlert, deleteInvoices } = useContext(CrudContext);
+  const { setToggleAlert, deleteInvoices, setFormFields } =
+    useContext(CrudContext);
 
   function hideAlert() {
     setToggleAlert(false);
@@ -17,8 +19,9 @@ function DeletionAlert() {
   function deleteAndRedirect() {
     deleteInvoices(invoId);
     setToggleAlert(false);
-
     navigate("/");
+
+    setFormFields(defaultForm);
   }
   return (
     <AlertContainer>
@@ -40,7 +43,7 @@ function DeletionAlert() {
 
 export default DeletionAlert;
 const AlertContainer = styled.div`
-  background-color: var(--white);
+  background-color: ${props => props.theme.main};
   border-radius: 0.5rem;
   padding: 2rem;
   max-height: 250px;

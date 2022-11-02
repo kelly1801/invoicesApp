@@ -219,12 +219,15 @@ const Form = styled.form`
   width: 100%;
   max-width: 450px;
   padding: 1rem 2rem;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.invoiceBg};;
   height: 100vh;
-
+  overflow: hidden;
+h1 {
+  color: ${(props) => props.theme.fontColor};
+}
   h2 {
     font-size: 0.9rem;
-    color: var(--purple);
+    color: ${(props) => props.theme.subsColor};
     font-weight: bold;
   }
 `;
@@ -242,6 +245,7 @@ const FormSection = styled.div`
   input {
     max-width: 5rem;
     margin: 0.5rem 0;
+    
   }
 `;
 

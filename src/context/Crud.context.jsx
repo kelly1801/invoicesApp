@@ -8,6 +8,7 @@ import {
   getInvoicesByStatus,
   db,
 } from "../firebase-utils/firebase";
+import { light, dark } from "../components/themes.js";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 
 export function generateAlphanumericId() {
@@ -59,6 +60,9 @@ export const CrudContext = createContext({
   updateCurrentInvoice: () => {},
   formFields: defaultForm,
   setFormFields: () => {},
+  theme: true,
+  setTheme: () => {},
+  selectedTheme: light
 });
 
 export const CrudProvider = ({ children }) => {
@@ -69,10 +73,26 @@ export const CrudProvider = ({ children }) => {
   const [uuid, setUniqueId] = useState();
   const [toggleAlert, setToggleAlert] = useState(false);
   const [formFields, setFormFields] = useState(defaultForm);
+  const [theme, setTheme] = useState(true);
+  const [selectedTheme, toggleTheme] = useState(light);
   async function retrieve() {
     const invoices = await getAllInvoices();
     setInvoicesCollection(invoices);
   }
+
+  function toggleColorTheme() {
+    if (theme) {
+      toggleTheme(light);
+    } else {
+      toggleTheme(dark);
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      toggleColorTheme();
+    };
+  }, [theme]);
 
   useEffect(() => {
     retrieve();
@@ -136,6 +156,9 @@ export const CrudProvider = ({ children }) => {
     updateCurrentInvoice,
     formFields,
     setFormFields,
+    theme,
+    setTheme,
+    selectedTheme
   };
 
   return <CrudContext.Provider value={value}>{children}</CrudContext.Provider>;

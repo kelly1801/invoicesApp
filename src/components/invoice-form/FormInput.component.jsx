@@ -14,6 +14,7 @@ export default function FormInput({
           value={value}
           name={nameTag}
           onChange={onChange}
+
           {...inputProps}
         />
       </Label>
@@ -24,8 +25,10 @@ export default function FormInput({
 const Input = styled.input`
 
   outline: none;
-  border: 1px solid var(--lightPurple);
+  border: 1px solid ${(props) => props.theme.borderColor};;
   padding: 0.5rem;
+  background-color: ${(props) => props.theme.main};
+  color: ${(props) => props.theme.fontColor};
 
 `
 const Label = styled.label`
@@ -33,7 +36,7 @@ const Label = styled.label`
   display: flex;
   flex-direction: column;
   text-align: left;
-  color: var(--blue);
+  color: ${(props) => props.theme.subsColor};;
   padding: 0.5rem;
 
 `

@@ -33,18 +33,20 @@ function InvoiceSummary({ invoiceData }) {
 export default InvoiceSummary;
 
 const Summary = styled.summary`
-  background-color: var(--white);
+  background-color: ${props => props.theme.main};
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
   margin: 1rem;
   border-radius: 0.5rem;
   padding: 1rem;
   box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.100397);
+  align-items: center;
+  justify-content: space-around;
 
   span {
     text-transform: capitalize;
     width: calc(100% / 5);
+    text-align: center;
+    color: ${props => props.theme.subsColor}
   }
   figure {
     display: flex;
@@ -55,4 +57,5 @@ const Summary = styled.summary`
 `;
 const Item = styled.h3`
   width: calc(100% / 5);
+ color: ${props => props.theme.fontColor}
 `;

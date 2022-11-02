@@ -19,16 +19,16 @@ const StatusContainer = styled.div`
   gap: 0.5rem;
   cursor: pointer;
 
-  //color:#373B53; ;
+   
 
   background-color: ${(props) =>
     props.stats === "Paid"
-      ? "#f3fefa"
+      ? props.theme.paidBg
       : props.stats === "Pending"
-      ? "var(--lightOrange)"
+      ? props.theme.pendingBg
       : props.stats === "Draft"
-      ? "#f4f4f6"
-      : "blue"};
+      ? props.theme.draftBg
+      : "373B53"};
   
   color : ${(props) =>
     props.stats === "Paid"
@@ -36,8 +36,8 @@ const StatusContainer = styled.div`
       : props.stats === "Pending"
       ? "var(--orange)"
       : props.stats === "Draft"
-      ? "#373B53"
-      : "blue"};
+      ? props.theme.draftColorFont
+      : "#f4f4f6"};
  
 
   div {
@@ -50,7 +50,7 @@ const StatusContainer = styled.div`
         : props.stats === "Pending"
         ? "var(--orange)"
         : props.stats === "Draft"
-        ? "#373B53"
+        ? props.theme.draftColorFont
         : "blue"};
  
 `;
