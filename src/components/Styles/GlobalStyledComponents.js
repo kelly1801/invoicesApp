@@ -26,6 +26,29 @@ export const Button = styled.button`
       }
     `}
 
+  ${(props) =>
+    props.draft &&
+    css`
+      background-color: ${(props) => props.theme.draftBtn};
+      color: ${(props) => props.theme.draftFont};
+      &:hover {
+        background-color: var(--opacPurple);
+      }
+    `}
+
+  ${(props) =>
+      props.discard &&
+      css`
+      background: ${(props) => props.theme.discardBtn};
+      color: var(--grayPurple);
+       
+        margin-left: 0;
+      &:hover {
+        background-color: var(--grayPurple);
+        color: var(--white);
+      }
+    `}
+
   div {
     background-color: var(--white);
     border-radius: 50%;
@@ -57,6 +80,22 @@ export const Icon = styled.figure`
   align-items: center;
   justify-content: center;
   border-radius: 0 0.7rem 0.7rem 0;
+  position: relative;
+  overflow: hidden;
+  img {
+    z-index: 2;
+  }
+
+  :before {
+    content: "";
+    position: absolute;
+    background-color: var(--palePurple);
+    bottom: 0;
+    width: 100%;
+    height: 50%;
+    z-index: 1;
+    border-radius: 0.7rem 0;
+  }
 `;
 export const Theme = styled.div``;
 export const Avatar = styled.figure`
@@ -75,19 +114,16 @@ export const Container = styled.div`
   align-items: center;
 `;
 export const Overlay = styled.div`
-  
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #0c0e16;
-    z-index: 4;
-    opacity: 0.5;
-  
-`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #0c0e16;
+  z-index: 4;
+  opacity: 0.5;
+`;
 export const PageContainer = styled.main`
-  background-color: ${(props) => props.theme.bg};;
+  background-color: ${(props) => props.theme.bg};
   display: flex;
-  
 `;
 
 export const MainContent = styled.main`
@@ -100,3 +136,12 @@ export const MainContent = styled.main`
   align-items: center;
   justify-content: center;
 `;
+
+export const GroupButtons = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  div {
+    display: flex;
+  }
+`

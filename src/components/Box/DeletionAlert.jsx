@@ -1,10 +1,10 @@
-import { defaultForm } from "../context/Crud.context.jsx";
-import { Button } from "./Styles/GlobalStyledComponents.js";
+import { defaultForm } from "../../context/Crud.context.jsx";
+import { Button } from "../Styles/GlobalStyledComponents.js";
 import { useContext } from "react";
-import { CrudContext } from "../context/Crud.context.jsx";
+import { CrudContext } from "../../context/Crud.context.jsx";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import {AlertContainer, GroupButtons, Cancel} from "./Styles/alertStyles.js";
+import {AlertContainer, GroupButtons, Cancel} from "../Styles/alertStyles.js";
 
 function DeletionAlert() {
   const { invoId } = useParams();

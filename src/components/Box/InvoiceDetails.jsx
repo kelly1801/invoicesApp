@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
-import Status from "../Status.jsx";
+import Status from "../Shared/Status.jsx";
 import arrowLeft from "../../assets/icon-arrow-left.svg";
-import DeletionAlert from "../DeletionAlert.jsx";
+import DeletionAlert from "./DeletionAlert.jsx";
 import { Button } from "../Styles/GlobalStyledComponents.js";
 import { useParams, useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -28,7 +27,7 @@ function InvoiceDetails() {
     updateCurrentInvoice,
     formFields,
     setFormFields,
-    setShow,
+      setShow
   } = useContext(CrudContext);
   const { invoId } = useParams();
   const {
@@ -74,11 +73,11 @@ function InvoiceDetails() {
 
   function updateFields() {
     setFormFields(queryInvoice);
-    setShow(true);
+    setShow(true)
+
   }
-  function updateNewInvoice() {
-    updateCurrentInvoice(invoId, { ...formFields });
-  }
+
+
 
   return (
     <InvoiceContainer>
@@ -87,13 +86,13 @@ function InvoiceDetails() {
         Go Back
       </BackButton>
 
-      <InvoiceHeader onClick={updateNewInvoice}>
+      <InvoiceHeader>
         <span>
           Status <Status>{stats || status}</Status>
         </span>
 
         <GroupButtons>
-          Edit
+          <Button discard onClick={updateFields}> Edit</Button>
           <Button delete onClick={showAlert}>
             Delete
           </Button>
@@ -106,7 +105,7 @@ function InvoiceDetails() {
         <BodyContainer>
           <BodyHeader>
             <div>
-              <h3 onClick={updateFields}># {ID}</h3>
+              <h3># {ID}</h3>
               <span>{projectDescription}</span>
             </div>
             <div>

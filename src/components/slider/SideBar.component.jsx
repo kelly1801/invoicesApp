@@ -25,7 +25,7 @@ function SideBar() {
 
       <Container>
         <Theme onClick={switchTheme}>
-          {!theme ? (
+          {theme ? (
             <img src={darkImg} alt="theme" />
           ) : (
             <img src={lightImg} alt="theme" />

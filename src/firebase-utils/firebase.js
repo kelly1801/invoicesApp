@@ -7,7 +7,7 @@ import {
   where,
 } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
-import { Await } from "react-router-dom";
+
 const firebaseConfig = {
   apiKey: "AIzaSyDtW4vVtl6WyppbjtR7lZe2e-Y4c5kV0Ek",
   authDomain: "invoiceapp-8902c.firebaseapp.com",
@@ -52,17 +52,11 @@ export async function deleteInvoice(ID) {
   return idD;
 }
 
-export async function getInvoiceById(invoiceId) {
+export async function getInvoicesByQuery(fieldPath,invoiceINFO) {
   const invoicesRef = collection(db, "invoices");
-  const q = query(invoicesRef, where("ID", "==", invoiceId));
+  const q = query(invoicesRef, where(fieldPath, "==", invoiceINFO));
+
 
   return await getDocs(q);
 }
-export async function getInvoicesByStatus(invoiceStatus) {
-  const q = await query(
-    collection(db, "invoices"),
-    where("status", "==", invoiceStatus)
-  );
 
-  return await getDocs(q);
-}

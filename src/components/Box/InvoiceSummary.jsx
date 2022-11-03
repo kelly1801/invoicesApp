@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import arrow from "../../assets/icon-arrow-right.svg";
 import { useContext, useState } from "react";
-import Status from "../Status.jsx";
+import Status from "../Shared/Status.jsx";
 import { useNavigate } from "react-router-dom";
 import { CrudContext } from "../../context/Crud.context.jsx";
 import {Summary,Item} from "../Styles/invoiceStyles.js";
 function InvoiceSummary({ invoiceData }) {
   const { status, ID } = invoiceData;
-  const { paidStatus } = useContext(CrudContext);
   const [stats, setStats] = useState(status);
   const navigate = useNavigate();
   function setStatusToPaid() {
@@ -22,7 +21,7 @@ function InvoiceSummary({ invoiceData }) {
       <span>Due {invoiceData.invoiceDate}</span>
       <span>{invoiceData.clientName}</span>
       <Item>£{invoiceData.price}</Item>
-      <Status changeStatus={setStatusToPaid}>{paidStatus || stats}</Status>
+      <Status changeStatus={setStatusToPaid}>{status}</Status>
       <figure >
         <img src={arrow} alt="" />
       </figure>

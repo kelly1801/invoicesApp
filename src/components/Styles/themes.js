@@ -13,7 +13,10 @@ export const light = {
     subsColor: 'var(--blue)',
     invoiceBg: 'var(--white)',
     borderColor: 'var(--lightPurple)',
-    themeImg: lightImg
+    themeImg: lightImg,
+    draftBtn: 'var(--darkPurple)',
+    draftFont: 'var(--grayPurple)',
+    discardBtn: 'none',
 }
 export const dark = {
     bg: 'var(--black)',
@@ -27,5 +30,9 @@ export const dark = {
     subsColor: 'var(--white)',
     invoiceBg: '#141625',
     borderColor: 'transparent',
-    themeImg: darkImg
+    themeImg: darkImg,
+    draftBtn: 'var(--opacPurple)',
+    draftFont: 'var(--white)' ,
+    discardBtn: 'var(--white)',
+
 }

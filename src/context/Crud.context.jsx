@@ -4,8 +4,7 @@ import {
   getAllInvoices,
   updateInvoice,
   deleteInvoice,
-  getInvoiceById,
-  getInvoicesByStatus,
+  getInvoicesByQuery,
   db,
 } from "../firebase-utils/firebase";
 import { light, dark } from "../components/Styles/themes.js";
@@ -46,23 +45,26 @@ export const defaultForm = {
 };
 export const CrudContext = createContext({
   show: false,
-  setShow: () => {},
   invoicesCollection: [],
-  createNewInvoice: () => {},
   uuid: "",
-  retrieveInvo: () => {},
   queryInvoice: "",
-  setStatus: () => {},
   paidStatus: "",
   toggleAlert: false,
+  formFields: defaultForm,
+  theme: true,
+  selectedTheme: light,
+  requiredInput: false,
+  setShow: () => {},
+  createNewInvoice: () => {},
+  retrieveInvo: () => {},
+  setStatus: () => {},
   setToggleAlert: () => {},
   deleteInvoices: () => {},
   updateCurrentInvoice: () => {},
-  formFields: defaultForm,
   setFormFields: () => {},
-  theme: true,
   setTheme: () => {},
-  selectedTheme: light
+  setRequiredInput: () => {},
+  retrieve: () => {},
 });
 
 export const CrudProvider = ({ children }) => {
@@ -75,6 +77,7 @@ export const CrudProvider = ({ children }) => {
   const [formFields, setFormFields] = useState(defaultForm);
   const [theme, setTheme] = useState(true);
   const [selectedTheme, toggleTheme] = useState(light);
+  const [requiredInput, setRequiredInput] = useState(false);
   async function retrieve() {
     const invoices = await getAllInvoices();
     setInvoicesCollection(invoices);
@@ -89,9 +92,7 @@ export const CrudProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    return () => {
-      toggleColorTheme();
-    };
+    toggleColorTheme();
   }, [theme]);
 
   useEffect(() => {
@@ -104,23 +105,33 @@ export const CrudProvider = ({ children }) => {
   useEffect(() => {
     async function queryInvoicesByStatus(paidStatus) {
       let arr = [];
-      const querySnapshot = await getInvoicesByStatus(paidStatus);
-      querySnapshot.docs.forEach((doc) => {
-        arr.push(doc.data());
+      const querySnapshot = await getInvoicesByQuery("status", paidStatus);
+      if (paidStatus) {
+        querySnapshot.docs.forEach((doc) => {
+          if (doc.data().status === paidStatus) {
+            arr.push(doc.data());
+          } else {
+            arr = [];
+          }
+        });
         setInvoicesCollection(arr);
-      });
+      }
     }
 
     queryInvoicesByStatus(paidStatus);
   }, [paidStatus]);
 
   function createNewInvoice(invoice) {
-    createInvoice(invoice);
-    setUniqueId(generateAlphanumericId);
+    if (requiredInput) {
+      alert("all inputs are required");
+    } else {
+      createInvoice(invoice);
+      setUniqueId(generateAlphanumericId);
+    }
   }
 
   async function retrieveInvo(ID) {
-    const querySnapshot = await getInvoiceById(ID);
+    const querySnapshot = await getInvoiceByQuery("ID", ID);
     querySnapshot.forEach((doc) => {
       setQueryInvoice(doc.data());
     });
@@ -136,29 +147,33 @@ export const CrudProvider = ({ children }) => {
   async function updateCurrentInvoice(id, newInvoice) {
     const uidd = await updateInvoice(id);
     const docRef = doc(db, "invoices", uidd);
+    if (requiredInput) {
+      return;
+    }
     await updateDoc(docRef, { ...newInvoice });
-    setShow(true);
   }
 
   const value = {
     show,
     setShow,
     invoicesCollection,
-    createNewInvoice,
     uuid,
-    retrieveInvo,
     queryInvoice,
     setStatus,
+    setRequiredInput,
     paidStatus,
     toggleAlert,
     setToggleAlert,
-    deleteInvoices,
-    updateCurrentInvoice,
     formFields,
     setFormFields,
     theme,
     setTheme,
-    selectedTheme
+    selectedTheme,
+    createNewInvoice,
+    retrieveInvo,
+    retrieve,
+    deleteInvoices,
+    updateCurrentInvoice,
   };
 
   return <CrudContext.Provider value={value}>{children}</CrudContext.Provider>;

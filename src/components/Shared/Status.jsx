@@ -1,4 +1,4 @@
-import { StatusContainer } from "./Styles/statusStyles.js";
+import { StatusContainer } from "../Styles/statusStyles.js";
 
 function Status({ children }) {
   return (

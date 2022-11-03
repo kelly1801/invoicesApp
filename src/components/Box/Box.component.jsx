@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { CrudContext } from "../../context/Crud.context";
 import InvoiceSummary from "./InvoiceSummary.jsx";
-import EmptyState from "../EmptyState.jsx";
-import MenuDropdown from "../MenuDropdown.jsx";
+import EmptyState from "../Shared/EmptyState.jsx";
+import MenuDropdown from "../Shared/MenuDropdown.jsx";
 import { Section, HeaderSection, Group } from "../Styles/boxStyles.js";
 import { Button } from "../Styles/GlobalStyledComponents.js";
 import add from "../../assets/icon-plus.svg";

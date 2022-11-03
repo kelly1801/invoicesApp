@@ -1,14 +1,29 @@
 import { useContext } from "react";
 import FormInput from "./FormInput.component";
-import {defaultForm} from "../../context/Crud.context";
+import { defaultForm } from "../../context/Crud.context";
 import { CrudContext } from "../../context/Crud.context";
-import {FormContainer, FormSection, Form, FormDiv, FormSection2} from "../Styles/invoiceStyles.js";
-
-
-function InvoiceForm({edit}) {
-  const { createNewInvoice, uuid, formFields, setFormFields } = useContext(CrudContext);
-
-
+import {
+  FormContainer,
+  FormSection,
+  Form,
+  FormDiv,
+  FormSection2,
+} from "../Styles/invoiceStyles.js";
+import { Button } from "../Styles/GlobalStyledComponents.js";
+import { GroupButtons } from "../Styles/GlobalStyledComponents.js";
+import { useParams } from "react-router-dom";
+function InvoiceForm({ edit }) {
+  const {
+    uuid,
+    formFields,
+    queryInvoice,
+    createNewInvoice,
+    setFormFields,
+    setRequiredInput,
+    updateCurrentInvoice,
+    setShow,
+  } = useContext(CrudContext);
+  const { invoId } = useParams();
 
   const {
     street,
@@ -26,7 +41,7 @@ function InvoiceForm({edit}) {
     itemName,
     quantity,
     price,
-      ID,
+    ID,
     projectDescription,
   } = formFields;
 
@@ -38,10 +53,21 @@ function InvoiceForm({edit}) {
     });
   }
   function saveInvoice(status) {
+    if (status === "Pending") {
+      setRequiredInput(true);
+    } else {
+      setRequiredInput(false);
+    }
     createNewInvoice({ ...formFields, ID: uuid, status: status });
     setFormFields(defaultForm);
   }
-
+  function updateNewInvoice() {
+    updateCurrentInvoice(invoId, { ...formFields });
+  }
+  function cancelUpdate() {
+    setFormFields(queryInvoice);
+    setShow(false);
+  }
 
   return (
     <Form
@@ -52,7 +78,10 @@ function InvoiceForm({edit}) {
     >
       <FormContainer>
         <FormDiv>
-          <h1>{edit}#{edit? ID : uuid }</h1>
+          <h1>
+            {edit && "Edit "}
+            {edit ? `#${ID}` : "New Invoice"}
+          </h1>
           <h2>Bill from</h2>
 
           <FormInput
@@ -66,7 +95,6 @@ function InvoiceForm({edit}) {
           <FormSection>
             <FormInput
               nameTag="city"
-              type="text"
               labelTag="City"
               onChange={handleChange}
               value={city}
@@ -76,14 +104,12 @@ function InvoiceForm({edit}) {
               onChange={handleChange}
               value={postCode}
               labelTag="Post Code"
-              type="number"
             />
             <FormInput
               nameTag="country"
               onChange={handleChange}
               value={country}
               labelTag="Country"
-              type="text"
             />
           </FormSection>
         </FormDiv>
@@ -96,7 +122,6 @@ function InvoiceForm({edit}) {
             onChange={handleChange}
             value={clientName}
             labelTag="Client Name"
-            type="text"
           />
           <FormInput
             nameTag="clientEmail"
@@ -110,7 +135,6 @@ function InvoiceForm({edit}) {
             onChange={handleChange}
             value={clientStreet}
             labelTag="Street Address"
-            type="text"
           />
 
           <FormSection>
@@ -119,7 +143,6 @@ function InvoiceForm({edit}) {
               onChange={handleChange}
               value={clientCity}
               labelTag="City"
-              type="text"
             />
 
             <FormInput
@@ -127,14 +150,12 @@ function InvoiceForm({edit}) {
               onChange={handleChange}
               value={clientPostCode}
               labelTag="Post code"
-              type="number"
             />
             <FormInput
               nameTag="clientCountry"
               onChange={handleChange}
               value={clientCountry}
               labelTag="country"
-              type="text"
             />
           </FormSection>
         </FormDiv>
@@ -154,7 +175,6 @@ function InvoiceForm({edit}) {
               onChange={handleChange}
               value={paymentDate}
               labelTag="Payment Terms"
-              type="text"
             />
           </FormSection2>
           <FormInput
@@ -162,7 +182,6 @@ function InvoiceForm({edit}) {
             onChange={handleChange}
             value={projectDescription}
             labelTag="Project Description"
-            type="text"
           />
         </FormDiv>
         <h2>item list</h2>
@@ -173,7 +192,6 @@ function InvoiceForm({edit}) {
             onChange={handleChange}
             value={itemName}
             labelTag="Item Name"
-            type="text"
           />
           <FormInput
             nameTag="quantity"
@@ -181,6 +199,7 @@ function InvoiceForm({edit}) {
             value={quantity}
             labelTag="Qty"
             type="number"
+            min={1}
           />
           <FormInput
             nameTag="price"
@@ -188,19 +207,36 @@ function InvoiceForm({edit}) {
             value={price}
             labelTag="Price"
             type="number"
+            min={1}
           />
         </FormSection>
 
-        <button type="submit" onClick={() => saveInvoice("Pending")}>
-          save as pending
-        </button>
-        <button type="submit" onClick={() => saveInvoice("Draft")}>
-          save as draft
-        </button>
+        {edit ? (
+          <GroupButtons>
+            <Button discard onClick={cancelUpdate}>
+              Cancel
+            </Button>
+            <Button onClick={updateNewInvoice}>Save Changes</Button>
+          </GroupButtons>
+        ) : (
+          <GroupButtons>
+            <Button discard onClick={cancelUpdate}>
+              Discard
+            </Button>
+
+            <div>
+              <Button draft type="submit" onClick={() => saveInvoice("Draft")}>
+                save as draft
+              </Button>
+              <Button type="submit" onClick={() => saveInvoice("Pending")}>
+                Save & send
+              </Button>
+            </div>
+          </GroupButtons>
+        )}
       </FormContainer>
     </Form>
   );
 }
 
 export default InvoiceForm;
-

@@ -9,7 +9,7 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
     list-style: none;
     font-family: "League Spartan", sans-serif;
-    transition: all 200ms ease;
+    
   }
 
   :root {
@@ -55,12 +55,13 @@ const GlobalStyles = createGlobalStyle`
 
   ::-webkit-scrollbar {
     width: 8px;
+    
   }
 
   ::-webkit-scrollbar-thumb {
     background: var(--grayPurple);
     border-radius: 0.7rem;
-    background-clip: padding-box;
+   
   }
 
 `

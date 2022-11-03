@@ -1,6 +1,6 @@
 import React from "react";
-import empty from "../assets/illustration-empty.svg";
-import {Figure} from "./Styles/emptyState.js";
+import empty from "../../assets/illustration-empty.svg";
+import {Figure} from "../Styles/emptyState.js";
 function EmptyState() {
   return (
     <Figure>
