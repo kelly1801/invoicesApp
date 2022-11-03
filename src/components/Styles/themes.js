@@ -17,6 +17,11 @@ export const light = {
     draftBtn: 'var(--darkPurple)',
     draftFont: 'var(--grayPurple)',
     discardBtn: 'none',
+    radius: '',
+    bottom:'',
+    mWidth: '',
+    margin: '',
+    shadow: '',
 }
 export const dark = {
     bg: 'var(--black)',
@@ -34,5 +39,9 @@ export const dark = {
     draftBtn: 'var(--opacPurple)',
     draftFont: 'var(--white)' ,
     discardBtn: 'var(--white)',
-
+    radius: '1rem',
+    bottom: '0',
+    mWidth: '800px',
+    margin: '1rem',
+    shadow: ' 0 5px 12px 5px rgba(72, 84, 159, 0.100397)',
 }

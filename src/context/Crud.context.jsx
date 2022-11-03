@@ -131,7 +131,7 @@ export const CrudProvider = ({ children }) => {
   }
 
   async function retrieveInvo(ID) {
-    const querySnapshot = await getInvoiceByQuery("ID", ID);
+    const querySnapshot = await getInvoicesByQuery("ID", ID);
     querySnapshot.forEach((doc) => {
       setQueryInvoice(doc.data());
     });

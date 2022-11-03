@@ -17,6 +17,7 @@ import {
   InvoiceBody,
   BackButton,
   GroupButtons,
+    InvoiceFooter
 } from "../Styles/invoiceStyles.js";
 function InvoiceDetails() {
   const {
@@ -139,6 +140,10 @@ function InvoiceDetails() {
               <h3>{clientEmail}</h3>
             </div>
           </BodyData>
+
+        </BodyContainer>
+        <InvoiceFooter>
+
           <BodyItem>
             <ul>
               <li>Item Name</li>
@@ -148,17 +153,19 @@ function InvoiceDetails() {
             </ul>
 
             <div>
-              <h3>{itemName}</h3>
+              <span>{itemName}</span>
               <span>{quantity}</span>
               <span>£ {price}</span>
-              <h3>£ {quantity * price}</h3>
+              <span>£ {quantity * price}</span>
             </div>
           </BodyItem>
-        </BodyContainer>
-        <Amount>
-          <span>Amount Due</span>
-          <h2>£ {quantity * price}</h2>
-        </Amount>
+
+          <Amount>
+            <span>Amount Due</span>
+            <h2>£ {quantity * price}</h2>
+          </Amount>
+        </InvoiceFooter>
+
       </InvoiceBody>
     </InvoiceContainer>
   );

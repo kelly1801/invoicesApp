@@ -8,25 +8,35 @@ function MenuDropdown() {
   const checkBoxes = [
     {
       label: "Paid",
+      checked: false,
     },
     {
       label: "Pending",
+      checked: false,
     },
     {
       label: "Draft",
+      checked: false,
     },
   ];
 
   const { setStatus, retrieve } = useContext(CrudContext);
   function handleChange(e) {
-    const { value } = e.target;
 
-    setStatus(value);
+    const { value , name, checked} = e.target;
+    setIsChecked( () => { checkBoxes.checked = value }
+
+    )
+    if(!checked){
+      retrieve()
+    }
+
+
+    setStatus(name);
   }
 
   function handleOpen() {
     setShow(!show);
-
     if(!show){
       retrieve()
     }
@@ -44,7 +54,8 @@ function MenuDropdown() {
             <label key={index}>
               <input
                 type="checkbox"
-                value={label.label}
+                checked={isChecked}
+                name={label.label}
                 onChange={(e) => handleChange(e)}
               />
               {label.label}

@@ -27,24 +27,36 @@ export const InvoiceBody = styled.div`
   box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.100397);
   background-color: ${(props) => props.theme.main};
   border-radius: 0.5rem;
-
-  padding-bottom: 4rem;
   overflow: hidden;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 export const BodyContainer = styled.div`
-  padding: 2.5rem;
+  padding: 2rem;
+`;
+export const InvoiceFooter = styled.div`
+  position: relative;
+  display: flex;
+  bottom: ${(props) => props.theme.bottom};
+  flex-direction: column;
+  width: 100%;
+  border-radius: ${(props) => props.theme.radius};
+  background-color: ${(props) => props.theme.main};
+  max-width: ${(props) => props.theme.mWidth};
+  overflow: hidden;
+  margin: ${(props) => props.theme.margin};
+  padding: 0;
+  box-shadow: ${(props) => props.theme.shadow};
 `;
 export const Amount = styled.div`
   background-color: ${(props) => props.theme.dark};
   color: ${(props) => props.theme.fontColor};
-  position: absolute;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
   width: 100%;
-  bottom: 0;
 
   h2 {
     color: var(--white);
@@ -53,7 +65,7 @@ export const Amount = styled.div`
 export const BodyHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 2rem;
+
   div {
     display: flex;
     flex-direction: column;
@@ -72,7 +84,6 @@ export const InvoiceHeader = styled.div`
   background-color: ${(props) => props.theme.main};
   padding: 1rem;
   width: 100%;
-
   margin-bottom: 1rem;
   span {
     display: flex;
@@ -89,10 +100,7 @@ export const GroupButtons = styled.div`
 export const BodyData = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
+  margin-top: 2rem;
   span {
     color: ${(props) => props.theme.subsColor};
   }
@@ -106,23 +114,38 @@ export const BodyData = styled.div`
   }
 `;
 export const BodyItem = styled.div`
-
+ 
   display: flex;
-  
   flex-direction: column;
-justify-content: center;
- ul {
-   display: grid;
-   grid-template-columns: repeat(4, 1fr);
-   gap: 1rem;
-   margin: 1rem 0;
- }
+  justify-content: center;
+  padding: 0 2rem;
+  width: 100%;
+ 
+  ul {
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
+    justify-items: center;
+    text-align: left;
+    gap: 1rem;
+    margin: 1rem 0;
+    
+    li {
+      width: 5rem;
+      text-align: center
+       }
+     }
+  }
   div {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 25%);
     gap: 1rem;
-
-  
+    margin: 2rem 0;
+    
+    span {
+      margin: 0 auto;
+      width: 5rem;
+      text-align: center;
+    }
 `;
 export const Summary = styled.summary`
   background-color: ${(props) => props.theme.main};
