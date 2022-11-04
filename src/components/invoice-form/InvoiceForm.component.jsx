@@ -7,7 +7,8 @@ import {
   FormSection,
   Form,
   FormDiv,
-  FormSection2, Label,
+  FormSection2,
+  Label,
 } from "../Styles/invoiceStyles.js";
 import { Button } from "../Styles/GlobalStyledComponents.js";
 import { GroupButtons } from "../Styles/GlobalStyledComponents.js";
@@ -44,28 +45,17 @@ function InvoiceForm({ edit }) {
     ID,
     projectDescription,
   } = formFields;
-let {paymentDate} = formFields
+  let { paymentDate } = formFields;
   function handleChange(event) {
     const { name, value } = event.target;
     setFormFields({
       ...formFields,
       [name]: value,
-
-    }
-
-
-    );
-
-  }
-  function selectChange(term){
-
-   paymentDate = term
-
+    });
   }
   function saveInvoice(status) {
     if (status === "Draft") {
       setReq(false);
-
     } else if (status === "Pending") {
       setReq(true);
     }
@@ -96,32 +86,31 @@ let {paymentDate} = formFields
           <h2>Bill from</h2>
 
           <FormInput
-              type="text"
-              nameTag="street"
-              labelTag="Street"
-              onChange={handleChange}
-              value={street}
-
+            type="text"
+            nameTag="street"
+            labelTag="Street"
+            onChange={handleChange}
+            value={street}
           />
 
           <FormSection>
             <FormInput
-                nameTag="city"
-                labelTag="City"
-                onChange={handleChange}
-                value={city}
+              nameTag="city"
+              labelTag="City"
+              onChange={handleChange}
+              value={city}
             />
             <FormInput
-                nameTag="postCode"
-                onChange={handleChange}
-                value={postCode}
-                labelTag="Post Code"
+              nameTag="postCode"
+              onChange={handleChange}
+              value={postCode}
+              labelTag="Post Code"
             />
             <FormInput
-                nameTag="country"
-                onChange={handleChange}
-                value={country}
-                labelTag="Country"
+              nameTag="country"
+              onChange={handleChange}
+              value={country}
+              labelTag="Country"
             />
           </FormSection>
         </FormDiv>
@@ -130,44 +119,44 @@ let {paymentDate} = formFields
           <h2>Bill to</h2>
 
           <FormInput
-              nameTag="clientName"
-              onChange={handleChange}
-              value={clientName}
-              labelTag="Client Name"
+            nameTag="clientName"
+            onChange={handleChange}
+            value={clientName}
+            labelTag="Client Name"
           />
           <FormInput
-              nameTag="clientEmail"
-              onChange={handleChange}
-              value={clientEmail}
-              labelTag="Client Email"
-              type="email"
+            nameTag="clientEmail"
+            onChange={handleChange}
+            value={clientEmail}
+            labelTag="Client Email"
+            type="email"
           />
           <FormInput
-              nameTag="clientStreet"
-              onChange={handleChange}
-              value={clientStreet}
-              labelTag="Street Address"
+            nameTag="clientStreet"
+            onChange={handleChange}
+            value={clientStreet}
+            labelTag="Street Address"
           />
 
           <FormSection>
             <FormInput
-                nameTag="clientCity"
-                onChange={handleChange}
-                value={clientCity}
-                labelTag="City"
+              nameTag="clientCity"
+              onChange={handleChange}
+              value={clientCity}
+              labelTag="City"
             />
 
             <FormInput
-                nameTag="clientPostCode"
-                onChange={handleChange}
-                value={clientPostCode}
-                labelTag="Post code"
+              nameTag="clientPostCode"
+              onChange={handleChange}
+              value={clientPostCode}
+              labelTag="Post code"
             />
             <FormInput
-                nameTag="clientCountry"
-                onChange={handleChange}
-                value={clientCountry}
-                labelTag="country"
+              nameTag="clientCountry"
+              onChange={handleChange}
+              value={clientCountry}
+              labelTag="country"
             />
           </FormSection>
         </FormDiv>
@@ -175,89 +164,83 @@ let {paymentDate} = formFields
         <FormDiv>
           <FormSection2>
             <FormInput
-                nameTag="invoiceDate"
-                onChange={handleChange}
-                value={invoiceDate}
-                labelTag="Invoice Date"
-                type="date"
+              nameTag="invoiceDate"
+              onChange={handleChange}
+              value={invoiceDate}
+              labelTag="Invoice Date"
+              type="date"
             />
 
             <Label>
               Payment Terms
-
-
               <select
-
-                  name="paymentDate" value={paymentDate}
-
-                  onChange={(e) => selectChange(e.target.value)}>
-                <option >Payment terms</option>
+                name="paymentDate"
+                value={paymentDate}
+                onChange={handleChange}
+              >
                 <option value={1}>Next 1 Days</option>
                 <option value={7}>Next 7 Days</option>
                 <option value={14}>Next 14 Days</option>
                 <option value={30}>Next 30 Days</option>
-
               </select>
             </Label>
-
-
           </FormSection2>
           <FormInput
-              nameTag="projectDescription"
-              onChange={handleChange}
-              value={projectDescription}
-              labelTag="Project Description"
+            nameTag="projectDescription"
+            onChange={handleChange}
+            value={projectDescription}
+            labelTag="Project Description"
           />
         </FormDiv>
         <h2>item list</h2>
 
         <FormSection>
           <FormInput
-              nameTag="itemName"
-              onChange={handleChange}
-              value={itemName}
-              labelTag="Item Name"
+            nameTag="itemName"
+            onChange={handleChange}
+            value={itemName}
+            labelTag="Item Name"
           />
           <FormInput
-              nameTag="quantity"
-              onChange={handleChange}
-              value={quantity}
-              labelTag="Qty"
-              type="number"
-              min={1}
+            nameTag="quantity"
+            onChange={handleChange}
+            value={quantity}
+            labelTag="Qty"
+            type="number"
+            min={1}
           />
           <FormInput
-              nameTag="price"
-              onChange={handleChange}
-              value={price}
-              labelTag="Price"
-              type="number"
-              min={1}
+            nameTag="price"
+            onChange={handleChange}
+            value={price}
+            labelTag="Price"
+            type="number"
+            min={1}
           />
         </FormSection>
 
         {edit ? (
-            <GroupButtons>
-              <Button discard onClick={cancelUpdate}>
-                Cancel
-              </Button>
-              <Button onClick={updateNewInvoice}>Save Changes</Button>
-            </GroupButtons>
+          <GroupButtons>
+            <Button discard onClick={cancelUpdate}>
+              Cancel
+            </Button>
+            <Button onClick={updateNewInvoice}>Save Changes</Button>
+          </GroupButtons>
         ) : (
-            <GroupButtons>
-              <Button discard onClick={cancelUpdate}>
-                Discard
-              </Button>
+          <GroupButtons>
+            <Button discard onClick={cancelUpdate}>
+              Discard
+            </Button>
 
-              <div>
-                <Button draft type="submit" onClick={() => saveInvoice("Draft")}>
-                  save as draft
-                </Button>
-                <Button type="submit" onClick={() => saveInvoice("Pending")}>
-                  Save & send
-                </Button>
-              </div>
-            </GroupButtons>
+            <div>
+              <Button draft type="submit" onClick={() => saveInvoice("Draft")}>
+                save as draft
+              </Button>
+              <Button type="submit" onClick={() => saveInvoice("Pending")}>
+                Save & send
+              </Button>
+            </div>
+          </GroupButtons>
         )}
       </FormContainer>
     </Form>

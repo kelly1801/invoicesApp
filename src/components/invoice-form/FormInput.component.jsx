@@ -6,20 +6,22 @@ export default function FormInput({
   onChange,
   nameTag,
   value,
-    customMessage,
+  customMessage,
 
   ...inputProps
 }) {
-  const {req} = useContext(CrudContext)
-
+  const { req } = useContext(CrudContext);
+  console.table(req);
   return (
     <Label>
       {labelTag}
-      <Input value={value} name={nameTag} onChange={onChange}
-             onInvalid={(e) => e.target.setCustomValidity(customMessage)}
-             onInput={e => e.target.setCustomValidity('')}
-
-             required={req}{...inputProps} />
+      <Input
+        value={value}
+        name={nameTag}
+        onChange={onChange}
+        required={req}
+        {...inputProps}
+      />
     </Label>
   );
 }

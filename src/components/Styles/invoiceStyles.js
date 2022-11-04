@@ -114,12 +114,12 @@ export const InvoiceHeader = styled.div`
   }
   @media (max-width : 568px) {
     ${GroupButtons}{
-      background-color: ${(props) => props.theme.bg};;
+      background-color: ${(props) => props.theme.bgColor};;
       position: absolute;
       bottom: 0;
       width: 100%;
       max-width: 390px;
-      padding: 1rem;
+      padding: 1rem 3.5rem;
       border-radius: 0.5rem;
 justify-content: flex-end;
 
