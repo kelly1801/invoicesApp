@@ -11,7 +11,7 @@ export default function FormInput({
   ...inputProps
 }) {
   const { req } = useContext(CrudContext);
-  console.table(req);
+
   return (
     <Label>
       {labelTag}
@@ -19,7 +19,7 @@ export default function FormInput({
         value={value}
         name={nameTag}
         onChange={onChange}
-        required={req}
+
         {...inputProps}
       />
     </Label>

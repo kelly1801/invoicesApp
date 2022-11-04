@@ -123,7 +123,7 @@ export const CrudProvider = ({ children }) => {
 
   function createNewInvoice(invoice) {
     if (req) {
-      return;
+      //return;
     }
     createInvoice(invoice);
     setUniqueId(generateAlphanumericId);
