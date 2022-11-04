@@ -5,6 +5,7 @@ export const Section = styled.section`
   height: 100%;
   padding: 0 5rem;
   overflow-y: scroll;
+  
   background-color:  ${props => props.theme.bg};
   h1 {
     color:${props => props.theme.fontColor} ;
@@ -27,14 +28,32 @@ export const Group = styled.div`
   position: relative;
 
   width: 50%;
+
 `;
+export const ShortCount = styled.div``
+export const Count = styled.div`
+
+`
 export const HeaderSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 3rem 0;
+  ${ShortCount}{
+   display: none;
+  }
 
   @media (max-width : 865px) {
     padding: 4rem 0;
   }
+
+  @media (max-width : 568px) {
+  ${ShortCount}{
+      display: block;
+    }
+    ${Count}{
+      display: none;
+    }
+  }
 `;
+

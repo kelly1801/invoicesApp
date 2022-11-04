@@ -3,8 +3,8 @@ import { CrudContext } from "../../context/Crud.context";
 import InvoiceSummary from "./InvoiceSummary.jsx";
 import EmptyState from "../Shared/EmptyState.jsx";
 import MenuDropdown from "../Shared/MenuDropdown.jsx";
-import { Section, HeaderSection, Group } from "../Styles/boxStyles.js";
-import { Button } from "../Styles/GlobalStyledComponents.js";
+import { Section, HeaderSection, Group, ShortCount, Count } from "../Styles/boxStyles.js";
+import { Button, BtnText, BtnShortText } from "../Styles/GlobalStyledComponents.js";
 import add from "../../assets/icon-plus.svg";
 
 function Box() {
@@ -15,7 +15,8 @@ function Box() {
       <HeaderSection>
         <div>
           <h1>Invoices</h1>
-          <span>There are in total {invoicesCollection.length} invoices</span>
+          <Count>There are in total {invoicesCollection.length} invoices</Count>
+          <ShortCount > {invoicesCollection.length} invoices</ShortCount>
         </div>
 
         <Group>
@@ -25,7 +26,9 @@ function Box() {
             <div>
               <img src={add} alt="" />
             </div>
-            new invoice
+            <BtnText>New invoice</BtnText>
+            <BtnShortText>New</BtnShortText>
+
           </Button>
         </Group>
       </HeaderSection>

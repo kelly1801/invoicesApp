@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 
+export const BtnText = styled.h4``
+export const BtnShortText = styled.h4``
 export const Button = styled.button`
   background-color: var(--purple);
   color: var(--white);
@@ -34,6 +36,7 @@ export const Button = styled.button`
       &:hover {
         background-color: var(--opacPurple);
       }
+      
     `}
 
   ${(props) =>
@@ -57,6 +60,23 @@ export const Button = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  ${BtnShortText}{
+    display: none;
+  }
+  ${BtnText}{
+    display: block;
+  }
+  
+
+  @media (max-width : 568px) {
+    ${BtnShortText}{
+      display: block;
+    }
+    ${BtnText}{
+      display: none;
+    }
   }
 `;
 export const Bar = styled.div`

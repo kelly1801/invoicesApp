@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import arrow from "../../assets/icon-arrow-down.svg";
 import { CrudContext } from "../../context/Crud.context.jsx";
-import { Menu, Summary, Options } from "../Styles/menuDropStyles.js";
+import { Menu, Summary, Options, Title, ShortTitle } from "../Styles/menuDropStyles.js";
 function MenuDropdown() {
   const [show, setShow] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -44,7 +44,8 @@ function MenuDropdown() {
   return (
     <Menu>
       <Summary onClick={handleOpen}>
-        <h2>Filter by status</h2>
+        <Title>Filter by status</Title>
+        <ShortTitle>Filter</ShortTitle>
         <img src={arrow} alt="arrow down" />
       </Summary>
 

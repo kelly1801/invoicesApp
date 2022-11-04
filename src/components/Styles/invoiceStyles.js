@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import Status from "../Shared/Status.jsx";
+import {Fragment} from "react";
 
 export const InvoiceContainer = styled.div`
   width: 80%;
@@ -89,6 +91,11 @@ export const BodyHeader = styled.div`
     }
   }
 `;
+export const GroupButtons = styled.div`
+  display: flex;
+  align-items: center;
+  color: ${(props) => props.theme.fontColor}; ;
+`;
 export const InvoiceHeader = styled.div`
   display: flex;
   align-items: center;
@@ -105,12 +112,22 @@ export const InvoiceHeader = styled.div`
     gap: 0.5rem;
     color: ${(props) => props.theme.subsColor};
   }
+  @media (max-width : 568px) {
+    ${GroupButtons}{
+      background-color: ${(props) => props.theme.bg};;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      max-width: 390px;
+      padding: 1rem;
+      border-radius: 0.5rem;
+justify-content: flex-end;
+
+    }
+
+    }
 `;
-export const GroupButtons = styled.div`
-  display: flex;
-  align-items: center;
-  color: ${(props) => props.theme.fontColor}; ;
-`;
+
 export const BodyData = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -161,6 +178,15 @@ export const BodyItem = styled.div`
       text-align: center;
     }
 `;
+export const Item = styled.h3`
+  width: calc(100% / 3);
+  color: ${(props) => props.theme.fontColor};
+`;
+
+
+export const SecCont = styled.div`
+
+`
 export const Summary = styled.summary`
   background-color: ${(props) => props.theme.main};
   display: flex;
@@ -169,14 +195,21 @@ export const Summary = styled.summary`
   padding: 1rem;
   box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.100397);
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   cursor: pointer;
-
+  ${SecCont}{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 50%;    
+  
+  ;}
+  
   span {
     text-transform: capitalize;
-    width: calc(100% / 5);
     text-align: center;
     color: ${(props) => props.theme.subsColor};
+    width: calc(100% / 2);
   }
   figure {
     display: flex;
@@ -184,11 +217,33 @@ export const Summary = styled.summary`
     justify-content: center;
     cursor: pointer;
   }
+
+  @media (max-width : 568px) { 
+   
+padding: 0.5rem;
+    margin-right:0 ;
+
+    ${SecCont}{
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      justify-content: center;
+      width: max-content;
+      
+      
+      div {
+        max-width: 5rem;
+        margin: 0.5rem 0;
+      }
+  }
+    figure{
+display: none}
+  }
+
+   
+  }
 `;
-export const Item = styled.h3`
-  width: calc(100% / 5);
-  color: ${(props) => props.theme.fontColor};
-`;
+
 export const Input = styled.input`
   outline: none;
   border: 1px solid ${(props) => props.theme.borderColor};
@@ -220,7 +275,12 @@ export const Form = styled.form`
   @media (max-width : 865px) {
     height: calc(100vh - 3rem);
     margin-top: 3rem;
- 
+    
+  }
+
+  @media (max-width: 568px) {
+position: absolute;
+    max-width: 380px;
   }
   h1 {
     color: ${(props) => props.theme.fontColor};
@@ -273,4 +333,6 @@ export const FormContainer = styled.div`
     font-size: 1.5rem;
     margin: 1rem 0;
   }
+  
+  
 `;

@@ -7,6 +7,8 @@ export const Menu = styled.div`
     color: ${(props) => props.theme.fontColor};
   }
 `;
+export const Title = styled.h2``
+export const ShortTitle = styled.h2``
 export const Summary = styled.div`
   display: flex;
   gap: 0.6rem;
@@ -14,6 +16,19 @@ export const Summary = styled.div`
   
   img {
     object-fit: contain;
+  }
+
+  ${ShortTitle}{
+    display: none;
+  }
+
+  @media (max-width : 568px) {
+    ${ShortTitle}{
+      display: block;
+    }
+    ${Title}{
+      display: none;
+    }
   }
 `;
 export const Options = styled.div`
@@ -36,5 +51,10 @@ export const Options = styled.div`
     display: flex;
     align-items: center;
     gap: 0.5rem;
+  }
+
+  @media (max-width : 568px) {
+    width: 6rem;
+    padding: 0.5rem;
   }
 `;

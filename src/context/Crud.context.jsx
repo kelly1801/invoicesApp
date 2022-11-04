@@ -100,7 +100,7 @@ export const CrudProvider = ({ children }) => {
   }, [uuid]);
   useEffect(() => {
     setUniqueId(generateAlphanumericId);
-console.log(req)
+
   }, []);
 
   useEffect(() => {
@@ -124,7 +124,7 @@ console.log(req)
 
   function createNewInvoice(invoice) {
     if (req) {
-      alert("all inputs are required");
+      console.table("all inputs are required");
 
 return
     } else {
@@ -151,7 +151,7 @@ return
     const uidd = await updateInvoice(id);
     const docRef = doc(db, "invoices", uidd);
     if (req) {
-      return;
+    //  return;
     }
     await updateDoc(docRef, { ...newInvoice });
   }
