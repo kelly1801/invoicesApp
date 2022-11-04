@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Section = styled.section`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   padding: 0 5rem;
   overflow-y: scroll;
   background-color:  ${props => props.theme.bg};
@@ -14,6 +14,9 @@ export const Section = styled.section`
     font-size: 0.7rem;
     line-height: 0.9rem;
     letter-spacing: 0.25px;
+  }
+  @media (max-width : 865px) {
+ padding: 0;
   }
 `;
 export const Group = styled.div`
@@ -30,5 +33,8 @@ export const HeaderSection = styled.div`
   align-items: center;
   justify-content: space-around;
   padding: 3rem 0;
-  
+
+  @media (max-width : 865px) {
+    padding: 4rem 0;
+  }
 `;

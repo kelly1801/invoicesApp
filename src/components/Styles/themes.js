@@ -22,6 +22,7 @@ export const light = {
     mWidth: '',
     margin: '',
     shadow: '',
+    amountWidth: ''
 }
 export const dark = {
     bg: 'var(--black)',
@@ -44,4 +45,5 @@ export const dark = {
     mWidth: '800px',
     margin: '1rem',
     shadow: ' 0 5px 12px 5px rgba(72, 84, 159, 0.100397)',
+    amountWidth: '768px'
 }

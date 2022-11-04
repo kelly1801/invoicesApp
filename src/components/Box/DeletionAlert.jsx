@@ -20,7 +20,6 @@ function DeletionAlert() {
     deleteInvoices(invoId);
     setToggleAlert(false);
     navigate("/");
-
     setFormFields(defaultForm);
   }
   return (

@@ -13,6 +13,13 @@ export const InvoiceContainer = styled.div`
   span {
     color: ${(props) => props.theme.subsColor};
   }
+
+
+  @media (max-width : 865px) {
+   width: 100%;
+    max-height: unset;
+
+  }
 `;
 export const BackButton = styled.button`
   background: none;
@@ -48,6 +55,13 @@ export const InvoiceFooter = styled.div`
   margin: ${(props) => props.theme.margin};
   padding: 0;
   box-shadow: ${(props) => props.theme.shadow};
+
+
+  @media (max-width : 865px) {
+   
+   max-width: ${(props) => props.theme.amountWidth};
+
+  }
 `;
 export const Amount = styled.div`
   background-color: ${(props) => props.theme.dark};
@@ -180,7 +194,8 @@ export const Input = styled.input`
   border: 1px solid ${(props) => props.theme.borderColor};
   padding: 0.5rem;
   background-color: ${(props) => props.theme.main};
-  color: ${(props) => props.theme.fontColor};
+  color: ${(props) => props.theme.fontColor}; 
+  
 `;
 export const Label = styled.label`
   display: flex;
@@ -202,6 +217,11 @@ export const Form = styled.form`
   height: 100vh;
   overflow: hidden;
 
+  @media (max-width : 865px) {
+    height: calc(100vh - 3rem);
+    margin-top: 3rem;
+ 
+  }
   h1 {
     color: ${(props) => props.theme.fontColor};
   }
@@ -234,6 +254,16 @@ export const FormDiv = styled.div`
 export const FormSection2 = styled(FormDiv)`
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  select {
+    outline: none;
+    border: 1px solid ${(props) => props.theme.borderColor};
+    padding: 0.5rem;
+    background-color: ${(props) => props.theme.main};
+    color: ${(props) => props.theme.fontColor};
+    height: 2.3rem;
+    
+  }
 `;
 export const FormContainer = styled.div`
   overflow-y: scroll;

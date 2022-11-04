@@ -53,7 +53,7 @@ export const CrudContext = createContext({
   formFields: defaultForm,
   theme: true,
   selectedTheme: light,
-  requiredInput: false,
+  req: true,
   setShow: () => {},
   createNewInvoice: () => {},
   retrieveInvo: () => {},
@@ -63,7 +63,7 @@ export const CrudContext = createContext({
   updateCurrentInvoice: () => {},
   setFormFields: () => {},
   setTheme: () => {},
-  setRequiredInput: () => {},
+  setReq: () => {},
   retrieve: () => {},
 });
 
@@ -77,7 +77,7 @@ export const CrudProvider = ({ children }) => {
   const [formFields, setFormFields] = useState(defaultForm);
   const [theme, setTheme] = useState(true);
   const [selectedTheme, toggleTheme] = useState(light);
-  const [requiredInput, setRequiredInput] = useState(false);
+  const [req, setReq] = useState(true);
   async function retrieve() {
     const invoices = await getAllInvoices();
     setInvoicesCollection(invoices);
@@ -100,6 +100,7 @@ export const CrudProvider = ({ children }) => {
   }, [uuid]);
   useEffect(() => {
     setUniqueId(generateAlphanumericId);
+console.log(req)
   }, []);
 
   useEffect(() => {
@@ -122,8 +123,10 @@ export const CrudProvider = ({ children }) => {
   }, [paidStatus]);
 
   function createNewInvoice(invoice) {
-    if (requiredInput) {
+    if (req) {
       alert("all inputs are required");
+
+return
     } else {
       createInvoice(invoice);
       setUniqueId(generateAlphanumericId);
@@ -147,7 +150,7 @@ export const CrudProvider = ({ children }) => {
   async function updateCurrentInvoice(id, newInvoice) {
     const uidd = await updateInvoice(id);
     const docRef = doc(db, "invoices", uidd);
-    if (requiredInput) {
+    if (req) {
       return;
     }
     await updateDoc(docRef, { ...newInvoice });
@@ -160,7 +163,7 @@ export const CrudProvider = ({ children }) => {
     uuid,
     queryInvoice,
     setStatus,
-    setRequiredInput,
+    setReq,
     paidStatus,
     toggleAlert,
     setToggleAlert,
@@ -169,6 +172,7 @@ export const CrudProvider = ({ children }) => {
     theme,
     setTheme,
     selectedTheme,
+    req,
     createNewInvoice,
     retrieveInvo,
     retrieve,

@@ -69,6 +69,17 @@ export const Bar = styled.div`
   max-width: 7rem;
   border-radius: 0 0.7rem 0.7rem 0;
   height: 100vh;
+  
+  @media (max-width : 865px) {
+   flex-direction: row;
+    position: absolute;
+    top: 0;
+    height: 3rem;
+    width: 100%;
+    max-width: unset;
+  overflow: hidden;
+    border-radius: 0 ;
+  }
 `;
 export const Icon = styled.figure`
   background-color: #7c5dfa;
@@ -96,8 +107,19 @@ export const Icon = styled.figure`
     z-index: 1;
     border-radius: 0.7rem 0;
   }
+  @media (max-width : 885px) {
+  height: 100%;
+    width: 5rem;
+    margin: 0;
+    border-radius: 0 0.7rem 0.7rem 0;
+  }
 `;
-export const Theme = styled.div``;
+export const Theme = styled.div`
+
+  @media (max-width : 865px) {
+   padding: 0 1rem;
+  }
+`;
 export const Avatar = styled.figure`
   margin-top: 1rem;
   border-top: 1px solid #888eb0;
@@ -107,11 +129,22 @@ export const Avatar = styled.figure`
     width: 2.5rem;
     margin: 0.5rem;
   }
+
+  @media (max-width : 865px) {
+    border-top: unset;
+    border-left: 1px solid #888eb0;
+    margin: 0;
+    padding: 0.5rem;
+  }
 `;
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (max-width : 865px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;
 export const Overlay = styled.div`
   position: absolute;
@@ -124,6 +157,9 @@ export const Overlay = styled.div`
 export const PageContainer = styled.main`
   background-color: ${(props) => props.theme.bg};
   display: flex;
+
+
+
 `;
 
 export const MainContent = styled.main`
@@ -132,9 +168,15 @@ export const MainContent = styled.main`
   overflow: hidden;
   display: flex;
   padding: 0 5rem;
-
   align-items: center;
   justify-content: center;
+
+
+  @media (max-width : 865px) {
+    padding: 0 1rem;
+    margin: 0;
+    position: relative;
+  }
 `;
 
 export const GroupButtons = styled.div`
