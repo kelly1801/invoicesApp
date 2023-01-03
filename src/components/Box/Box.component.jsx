@@ -10,6 +10,7 @@ import add from "../../assets/icon-plus.svg";
 function Box() {
   const { invoicesCollection, setShow } = useContext(CrudContext);
 
+  console.log(invoicesCollection)
   return (
     <Section>
       <HeaderSection>
