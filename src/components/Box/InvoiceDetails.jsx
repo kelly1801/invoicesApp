@@ -27,6 +27,8 @@ function InvoiceDetails() {
     setFormFields,
     getInvoiceById,
     setShow,
+    updateInvoice,
+    deleteInvoice,
   } = useContext(CrudContext);
   const { invoId } = useParams();
   const [queryInvoice, setQueryInvoice] = useState([]);
@@ -42,15 +44,10 @@ function InvoiceDetails() {
     clientName,
     createdAt,
     description,
-    items
+    items,
   } = queryInvoice;
 
-  console.log(items);
   const [stats, setStats] = useState(status);
-  function setStatusToPaid() {
-    setStats("Paid");
-    updateCurrentInvoice(invoId, { ...formFields, status: "Paid" });
-  }
 
   useEffect(() => {
     const queryInvoiceById = async () => {
@@ -59,12 +56,15 @@ function InvoiceDetails() {
     };
 
     queryInvoiceById();
-  }, [invoId]);
+  }, [invoId, queryInvoice]);
 
   function showAlert() {
     setToggleAlert(!toggleAlert);
   }
 
+  const markAsPaid = () => {
+    updateInvoice(invoId, { status: "paid" });
+  };
   function updateFields() {
     setFormFields(queryInvoice);
     setShow(true);
@@ -90,7 +90,7 @@ function InvoiceDetails() {
           <Button delete onClick={showAlert}>
             Delete
           </Button>
-          <Button onClick={setStatusToPaid}>Mark as paid</Button>
+          <Button onClick={markAsPaid}>Mark as paid</Button>
         </GroupButtons>
       </InvoiceHeader>
 
@@ -143,10 +143,9 @@ function InvoiceDetails() {
               <li>Total</li>
             </ul>
 
-           
             {items?.map((item, index) => (
               <div key={index}>
-                 <span>{item?.itemName || '#'}</span>
+                <span>{item?.itemName || "#"}</span>
                 <span>{item?.quantity}</span>
                 <span>£ {item?.price}</span>
                 <span>£ {item?.total}</span>
@@ -157,10 +156,8 @@ function InvoiceDetails() {
           <Amount>
             <span>Amount Due</span>
             {items?.map((item, index) => (
-             
-             <h2 key={index}>£ {item?.total}</h2>
+              <h2 key={index}>£ {item?.total}</h2>
             ))}
-            
           </Amount>
         </InvoiceFooter>
       </InvoiceBody>

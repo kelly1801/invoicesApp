@@ -10,14 +10,14 @@ function DeletionAlert() {
   const { invoId } = useParams();
   const navigate = useNavigate();
 
-  const { setToggleAlert, deleteInvoices, setFormFields } =
+  const { setToggleAlert, setFormFields, deleteInvoice } =
     useContext(CrudContext);
 
   function hideAlert() {
     setToggleAlert(false);
   }
   function deleteAndRedirect() {
-    deleteInvoices(invoId);
+    deleteInvoice(invoId);
     setToggleAlert(false);
     navigate("/");
     setFormFields(defaultForm);

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import FormInput from "./FormInput.component";
+import { Formik } from "formik";
 import { defaultForm } from "../../context/Crud.context";
 import { CrudContext } from "../../context/Crud.context";
 import {
@@ -13,109 +14,109 @@ import {
 import { Button } from "../Styles/GlobalStyledComponents.js";
 import { GroupButtons } from "../Styles/GlobalStyledComponents.js";
 import { useParams } from "react-router-dom";
+
 function InvoiceForm({ edit }) {
-  const {
-    uuid,
-    formFields,
-    queryInvoice,
-    createNewInvoice,
-    setFormFields,
-    updateCurrentInvoice,
-    setShow,
-    req,
-    setReq,
-  } = useContext(CrudContext);
+  const { formFields, setFormFields, setShow } = useContext(CrudContext);
+
   const { invoId } = useParams();
 
-  const {
-    street,
-    city,
-    postCode,
-    country,
-    clientName,
-    clientEmail,
-    clientCity,
-    clientCountry,
-    clientPostCode,
-    clientStreet,
-    invoiceDate,
-    itemName,
-    quantity,
-    price,
-    ID,
-    projectDescription,
-  } = formFields;
   let { paymentDate } = formFields;
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setFormFields({
-      ...formFields,
-      [name]: value,
-    });
-  }
-  function saveInvoice(status) {
-    if (status === "Draft") {
-      setReq(false);
-    } else if (status === "Pending") {
-      setReq(true);
-    }
-    createNewInvoice({ ...formFields, ID: uuid, status: status });
-    setFormFields(defaultForm);
-  }
-  function updateNewInvoice() {
-    updateCurrentInvoice(invoId, { ...formFields });
-  }
-  function cancelUpdate() {
-    setFormFields(queryInvoice);
-    setShow(false);
-  }
+// TODOS
+  // FUNCTION TO CREATE A NEW INVOICE
+  // FUNCTION TO UPDATE AN EXISTING INVOICE
+  // FUNCTION TO CANCEL THE CREATION OR EDITING
+// send the objectData in the adecuate format with formik
+  // return (
+//     <Formik
+//       initialValues={{
+//         clientAddress: [
+//           {
+//             clientStreet: "",
+//             clientCountry: "",
+//             clientPostCode: "",
+//             clientCountry: "",
+//           },
+//         ],
+//         senderAddress: [
+//           {
+//             street: "",
+//             country: "",
+//             postCode: "",
+//             country: "",
+//           },
+//         ],
+//         status: "",
+//         clientEmail: "",
+//         clientName: "",
+//         description: "",
+//         paymentTerms: 0,
+//         items: [
+//           {
+//             itemName: "",
+//             price: 0,
+//             projectDescription: "",
+//             quantity: 0,
+//             total: 0,
+//           },
+//         ],
+//       }}
+//       onSubmit={(values) => {
+//         console.log(values);
+//       }}
+//     >
+//       {({
+//         values,
+// handleChange,
+//         handleSubmit,
 
-  return (
-    <Form
-      onSubmit={(e) => e.preventDefault()}
-      data-aos="fade-right"
-      data-aos-offset="300"
-      data-aos-easing="ease-in-sine"
-    >
-      <FormContainer>
-        <FormDiv>
-          <h1>
-            {edit && "Edit "}
-            {edit ? `#${ID}` : "New Invoice"}
-          </h1>
-          <h2>Bill from</h2>
+//         /* and other goodies */
+//       }) => (
+//         <Form
+//           onSubmit={handleSubmit}
+//           data-aos="fade-right"
+//           data-aos-offset="300"
+//           data-aos-easing="ease-in-sine"
+//         >
+//           <FormContainer>
+//             <FormDiv>
+//               <h1>
+//                 {edit && "Edit "}
+//                 {edit ? `#${ID}` : "New Invoice"}
+//               </h1>
+//               <h2>Bill from</h2>
 
-          <FormInput
-            type="text"
-            nameTag="street"
-            labelTag="Street"
-            onChange={handleChange}
-            value={street}
-          />
+//               <FormInput
+//                 nameTag='senderAddress.street'
+//                 labelTag="Street"
+               
+               
+//               />
 
-          <FormSection>
-            <FormInput
-              nameTag="city"
-              labelTag="City"
-              onChange={handleChange}
-              value={city}
-            />
-            <FormInput
-              nameTag="postCode"
-              onChange={handleChange}
-              value={postCode}
-              labelTag="Post Code"
-            />
-            <FormInput
-              nameTag="country"
-              onChange={handleChange}
-              value={country}
-              labelTag="Country"
-            />
-          </FormSection>
-        </FormDiv>
+//               <FormSection>
+//                 <FormInput 
+//                 nameTag='senderAddress.city'
+//                 labelTag="City" 
+               
+               
+//                 />
+//                 <FormInput
+//                   nameTag='senderAddress.postCode'
+//                   labelTag="Post Code"
+                 
+                 
+//                 />
+//                 <FormInput 
+//                 nameTag='senderAddress.postCode'
+//                 labelTag="Country"
+//                 value={values.senderAddress.country}
+               
+//                 />
+//               </FormSection>
+//          <button type="submit">SUBMIT</button>
+//             </FormDiv>
 
-        <FormDiv>
+
+            {/* <FormDiv>
           <h2>Bill to</h2>
 
           <FormInput
@@ -240,11 +241,13 @@ function InvoiceForm({ edit }) {
                 Save & send
               </Button>
             </div>
-          </GroupButtons>
-        )}
-      </FormContainer>
-    </Form>
-  );
+          </GroupButtons> */}
+            {/* )}  */}
+//           </FormContainer>
+//         </Form>
+//       )}
+//     </Formik>
+//   );
 }
 
 export default InvoiceForm;

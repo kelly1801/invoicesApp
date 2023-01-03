@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Status from "../Shared/Status.jsx";
+
 import {Fragment} from "react";
 
 export const InvoiceContainer = styled.div`
@@ -332,6 +333,9 @@ export const FormContainer = styled.div`
     color: ${(props) => props.theme.fontColor};
     font-size: 1.5rem;
     margin: 1rem 0;
+  }
+
+  
   }
   
   

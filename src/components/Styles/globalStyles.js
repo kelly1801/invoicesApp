@@ -64,6 +64,38 @@ const GlobalStyles = createGlobalStyle`
    
   }
 
+  form {
+    display: flex;
+  flex-direction: column;
+  border-radius: 0 1rem 1rem 0;
+  z-index: 5;
+  margin-left: -10px;
+  width: 100%;
+  max-width: 450px;
+  padding: 1rem 2rem;
+  background-color: ${(props) => props.theme.invoiceBg};
+  height: 100vh;
+  overflow: hidden;
+
+  @media (max-width : 865px) {
+    height: calc(100vh - 3rem);
+    margin-top: 3rem;
+    
+  }
+
+  @media (max-width: 568px) {
+position: absolute;
+    max-width: 380px;
+  }
+  h1 {
+    color: ${(props) => props.theme.fontColor};
+  }
+  h2 {
+    font-size: 0.9rem;
+    color: var(--purple);
+    font-weight: bold;
+  }
+  }
 `
 
 export default GlobalStyles
