@@ -1,44 +1,45 @@
 import { useContext, useState } from "react";
 import arrow from "../../assets/icon-arrow-down.svg";
 import { CrudContext } from "../../context/Crud.context.jsx";
-import { Menu, Summary, Options, Title, ShortTitle } from "../Styles/menuDropStyles.js";
+import {
+  Menu,
+  Summary,
+  Options,
+  Title,
+  ShortTitle,
+} from "../Styles/menuDropStyles.js";
 function MenuDropdown() {
   const [show, setShow] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const checkBoxes = [
     {
-      label: "Paid",
+      label: "paid",
       checked: false,
     },
     {
-      label: "Pending",
+      label: "pending",
       checked: false,
     },
     {
-      label: "Draft",
+      label: "draft",
       checked: false,
     },
   ];
 
-  const { setStatus, retrieve } = useContext(CrudContext);
-  function handleChange(e) {
+  const { getInvoicesByStatus, getInvoices } = useContext(CrudContext);
+  const handleChange = async (e) => {
+    const { value, name, checked } = e.target;
+    setIsChecked(() => {
+      checkBoxes.checked = value;
+    });
 
-    const { value , name, checked} = e.target;
-    setIsChecked( () => { checkBoxes.checked = value }
-
-    )
-    if(!checked){
-      retrieve()
-    }
-
-
-    setStatus(name);
-  }
+    !checked ? getInvoices() : getInvoicesByStatus(name);
+  };
 
   function handleOpen() {
     setShow(!show);
-    if(!show){
-      retrieve()
+    if (!show) {
+      retrieve();
     }
   }
   return (

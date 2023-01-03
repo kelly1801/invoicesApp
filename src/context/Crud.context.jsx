@@ -32,7 +32,8 @@ export const CrudContext = createContext({
   setToggleAlert: () => {},
   setFormFields: () => {},
   setTheme: () => {},
-  setReq: () => {},
+  getInvoicesByStatus: () => {},
+  getInvoices: () => {}
 });
 
 export const CrudProvider = ({ children }) => {
@@ -50,6 +51,13 @@ export const CrudProvider = ({ children }) => {
     );
     setInvoicesCollection(invoices.data.invoices);
   };
+
+  const getInvoicesByStatus = async(status) => {
+    const invoices = await axios.get(
+      `https://invoiceapi.up.railway.app/api/invoices/filter/${status}`
+    );
+    setInvoicesCollection(invoices.data.invoices);
+  }
 
   const getInvoiceById = async (id) => {
     const invoice = await axios.get(
@@ -86,7 +94,8 @@ export const CrudProvider = ({ children }) => {
     setTheme,
     selectedTheme,
     getInvoices,
-    getInvoiceById
+    getInvoiceById,
+    getInvoicesByStatus
   };
 
   return <CrudContext.Provider value={value}>{children}</CrudContext.Provider>;
