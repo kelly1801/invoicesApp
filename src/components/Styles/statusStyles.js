@@ -11,20 +11,20 @@ export const StatusContainer = styled.div`
    
 
   background-color: ${(props) =>
-    props.stats === "Paid"
+    props.stats === "paid"
         ? props.theme.paidBg
-        : props.stats === "Pending"
+        : props.stats === "pending"
             ? props.theme.pendingBg
-            : props.stats === "Draft"
+            : props.stats === "draft"
                 ? props.theme.draftBg
                 : "373B53"};
   
   color : ${(props) =>
-    props.stats === "Paid"
+    props.stats === "paid"
         ? "#33d69f"
-        : props.stats === "Pending"
+        : props.stats === "pending"
             ? "var(--orange)"
-            : props.stats === "Draft"
+            : props.stats === "draft"
                 ? props.theme.draftColorFont
                 : "#f4f4f6"};
  
@@ -34,11 +34,11 @@ export const StatusContainer = styled.div`
     height: 0.5rem;
     border-radius: 50%;
     background-color: ${(props) =>
-    props.stats === "Paid"
+    props.stats === "paid"
         ? "#33d69f"
-        : props.stats === "Pending"
+        : props.stats === "pending"
             ? "var(--orange)"
-            : props.stats === "Draft"
+            : props.stats === "draft"
                 ? props.theme.draftColorFont
                 : "blue"};
  

@@ -2,7 +2,6 @@ import { createContext, useEffect, useState } from "react";
 import { light, dark } from "../components/Styles/themes.js";
 import axios from "axios";
 
-
 export const defaultForm = {
   street: "",
   city: "",
@@ -39,22 +38,30 @@ export const CrudContext = createContext({
 export const CrudProvider = ({ children }) => {
   const [show, setShow] = useState(false);
   const [invoicesCollection, setInvoicesCollection] = useState([]);
+
   const [toggleAlert, setToggleAlert] = useState(false);
   const [formFields, setFormFields] = useState(defaultForm);
   const [theme, setTheme] = useState(true);
   const [selectedTheme, toggleTheme] = useState(light);
-  
-  
-   const getInvoices = async() => {
-    const invoices = await axios.get('https://invoice-api.up.railway.app/api/invoices')
-    setInvoicesCollection(invoices.data.invoices);
-  }
 
+  const getInvoices = async () => {
+    const invoices = await axios.get(
+      "https://invoiceapi.up.railway.app/api/invoices/"
+    );
+    setInvoicesCollection(invoices.data.invoices);
+  };
+
+  const getInvoiceById = async (id) => {
+    const invoice = await axios.get(
+      `https://invoiceapi.up.railway.app/api/invoices/${id}`
+    );
+    return invoice;
+  };
 
   useEffect(() => {
-   getInvoices()
+    getInvoices();
   }, []);
-  
+
   function toggleColorTheme() {
     if (theme) {
       toggleTheme(light);
@@ -67,21 +74,19 @@ export const CrudProvider = ({ children }) => {
     toggleColorTheme();
   }, [theme]);
 
-
-
   const value = {
     show,
     setShow,
     invoicesCollection,
-     toggleAlert,
+    toggleAlert,
     setToggleAlert,
     formFields,
     setFormFields,
     theme,
     setTheme,
     selectedTheme,
-   getInvoices
- 
+    getInvoices,
+    getInvoiceById
   };
 
   return <CrudContext.Provider value={value}>{children}</CrudContext.Provider>;

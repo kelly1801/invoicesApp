@@ -9,8 +9,6 @@ import add from "../../assets/icon-plus.svg";
 
 function Box() {
   const { invoicesCollection, setShow } = useContext(CrudContext);
-
-  console.log(invoicesCollection)
   return (
     <Section>
       <HeaderSection>
@@ -35,8 +33,8 @@ function Box() {
       </HeaderSection>
 
       {invoicesCollection.length ? (
-        invoicesCollection.map((invo) => (
-          <InvoiceSummary key={invo.id} invoiceData={invo} />
+        invoicesCollection.map(( invo, index ) => (
+          <InvoiceSummary key={ index } invoiceData={ invo } />
         ))
       ) : (
         <EmptyState />

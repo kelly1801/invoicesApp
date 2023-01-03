@@ -17,56 +17,49 @@ import {
   InvoiceBody,
   BackButton,
   GroupButtons,
-    InvoiceFooter
+  InvoiceFooter,
 } from "../Styles/invoiceStyles.js";
 function InvoiceDetails() {
   const {
-    queryInvoice,
-    retrieveInvo,
     setToggleAlert,
     toggleAlert,
-    updateCurrentInvoice,
     formFields,
     setFormFields,
-      setShow
+    getInvoiceById,
+    setShow,
   } = useContext(CrudContext);
   const { invoId } = useParams();
+  const [queryInvoice, setQueryInvoice] = useState([]);
+
+  const navigate = useNavigate();
   const {
-    street,
-    city,
-    postCode,
-    country,
-    clientName,
-    clientEmail,
-    clientCity,
-    clientCountry,
-    clientPostCode,
-    clientStreet,
-    invoiceDate,
-    paymentDate,
-    itemName,
-    quantity,
-    price,
-    projectDescription,
+    clientAddress,
+    paymentTerms,
+    senderAddress,
     status,
     ID,
+    clientEmail,
+    clientName,
+    createdAt,
+    description,
+    items
   } = queryInvoice;
-  const [stats, setStats] = useState(status);
-  const navigate = useNavigate();
 
+  console.log(items);
+  const [stats, setStats] = useState(status);
   function setStatusToPaid() {
     setStats("Paid");
     updateCurrentInvoice(invoId, { ...formFields, status: "Paid" });
   }
 
   useEffect(() => {
-    async function getCurrentInvoice() {
-      await retrieveInvo(invoId);
-    }
-    return () => {
-      getCurrentInvoice();
+    const queryInvoiceById = async () => {
+      const { data } = await getInvoiceById(invoId);
+      setQueryInvoice(...data.invoice);
     };
-  }, [invoId, queryInvoice]);
+
+    queryInvoiceById();
+  }, [invoId]);
 
   function showAlert() {
     setToggleAlert(!toggleAlert);
@@ -74,11 +67,8 @@ function InvoiceDetails() {
 
   function updateFields() {
     setFormFields(queryInvoice);
-    setShow(true)
-
+    setShow(true);
   }
-
-
 
   return (
     <InvoiceContainer>
@@ -89,11 +79,14 @@ function InvoiceDetails() {
 
       <InvoiceHeader>
         <span>
-          Status <Status>{stats || status}</Status>
+          <Status>{stats || status}</Status>
         </span>
 
         <GroupButtons>
-          <Button discard onClick={updateFields}> Edit</Button>
+          <Button discard onClick={updateFields}>
+            {" "}
+            Edit
+          </Button>
           <Button delete onClick={showAlert}>
             Delete
           </Button>
@@ -107,32 +100,32 @@ function InvoiceDetails() {
           <BodyHeader>
             <div>
               <h3># {ID}</h3>
-              <span>{projectDescription}</span>
+              <span>{description}</span>
             </div>
             <div>
-              <span>{street}</span>
-              <span>{city} </span>
-              <span>{postCode}</span>
-              <span>{country}</span>
+              <span>{senderAddress?.street}</span>
+              <span>{senderAddress?.city} </span>
+              <span>{senderAddress?.postCode}</span>
+              <span>{senderAddress?.country}</span>
             </div>
           </BodyHeader>
 
           <BodyData>
             <div>
               <span>Invoice Date</span>
-              <h3>{invoiceDate}</h3>
+              <h3>{createdAt}</h3>
               <span>Payment Due</span>
-              <h3>{paymentDate}</h3>
+              <h3>{paymentTerms}</h3>
             </div>
             <div>
               <span>Bill to</span>
 
               <h3>{clientName}</h3>
               <ul>
-                <li>{clientStreet}</li>
-                <li>{clientCity}</li>
-                <li>{clientPostCode}</li>
-                <li>{clientCountry}</li>
+                <li>{clientAddress?.street}</li>
+                <li>{clientAddress?.city}</li>
+                <li>{clientAddress?.postCode}</li>
+                <li>{clientAddress?.country}</li>
               </ul>
             </div>
             <div>
@@ -140,10 +133,8 @@ function InvoiceDetails() {
               <h3>{clientEmail}</h3>
             </div>
           </BodyData>
-
         </BodyContainer>
         <InvoiceFooter>
-
           <BodyItem>
             <ul>
               <li>Item Name</li>
@@ -152,20 +143,26 @@ function InvoiceDetails() {
               <li>Total</li>
             </ul>
 
-            <div>
-              <span>{itemName}</span>
-              <span>{quantity}</span>
-              <span>£ {price}</span>
-              <span>£ {quantity * price}</span>
-            </div>
+           
+            {items?.map((item, index) => (
+              <div key={index}>
+                 <span>{item?.itemName || '#'}</span>
+                <span>{item?.quantity}</span>
+                <span>£ {item?.price}</span>
+                <span>£ {item?.total}</span>
+              </div>
+            ))}
           </BodyItem>
 
           <Amount>
             <span>Amount Due</span>
-            <h2>£ {quantity * price}</h2>
+            {items?.map((item, index) => (
+             
+             <h2 key={index}>£ {item?.total}</h2>
+            ))}
+            
           </Amount>
         </InvoiceFooter>
-
       </InvoiceBody>
     </InvoiceContainer>
   );
